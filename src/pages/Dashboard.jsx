@@ -9,6 +9,7 @@ import { AppProvider } from '@toolpad/core/AppProvider';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import { PageContainer } from '@toolpad/core/PageContainer';
 import Grid from '@mui/material/Grid2';
+import DeliveryDetails from './DeliveryDetails';
 
 const NAVIGATION = [
   {
@@ -19,11 +20,14 @@ const NAVIGATION = [
     segment: 'dashboard',
     title: 'Dashboard',
     icon: <DashboardIcon />,
+    path: 'dashboard',
+    
   },
   {
-    segment: 'orders',
-    title: 'Orders',
+    segment: 'delivery',
+    title: 'Delivery Details',
     icon: <ShoppingCartIcon />,
+    path: '/delivery',
   },
   {
     kind: 'divider',
@@ -77,7 +81,10 @@ function useDemoRouter(initialPath) {
     return {
       pathname,
       searchParams: new URLSearchParams(),
-      navigate: (path) => setPathname(String(path)),
+      navigate: (path) => {
+        console.log(`Navigating to: ${path}`); // Debug navigation
+        setPathname(String(path));
+      },
     };
   }, [pathname]);
 
@@ -95,6 +102,23 @@ export default function Dashboard(props) {
   const { window } = props;
 
   const router = useDemoRouter('/dashboard');
+  const renderContent = () => {
+    switch (router.pathname) {
+      case '/dashboard':
+        return <h1>Welcome to the Dashboard</h1>;
+      case '/delivery':
+        return <DeliveryDetails />;
+      case '/reports/sales':
+        return <h1>Sales Reports</h1>;
+      case '/reports/traffic':
+        return <h1>Traffic Reports</h1>;
+      case '/integrations':
+        return <h1>Integrations</h1>;
+      default:
+        return <h1>Page Not Found</h1>;
+    }
+  };
+
 
   // Remove this const when copying and pasting into your project.
   const demoWindow = window ? window() : undefined;
@@ -112,7 +136,8 @@ export default function Dashboard(props) {
     >
       <DashboardLayout>
         <PageContainer>
-          <Grid container spacing={1}>
+          {renderContent()}
+          {/* <Grid container spacing={1}>
             <Grid size={5} />
             <Grid size={12}>
               <Skeleton height={14} />
@@ -146,7 +171,7 @@ export default function Dashboard(props) {
             <Grid size={3}>
               <Skeleton height={100} />
             </Grid>
-          </Grid>
+          </Grid> */}
         </PageContainer>
       </DashboardLayout>
     </AppProvider>
