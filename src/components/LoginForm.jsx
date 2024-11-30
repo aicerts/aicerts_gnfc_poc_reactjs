@@ -15,7 +15,7 @@ const LoginForm = ({setShowLogin}) => {
   const [password, setPassword]=useState("")
   const [loading, setLoading] = useState(false); // To show loading during request
   const [role, setRole] = useState("") // State for selected role
-  const roles = ["admin","Leaser", "Government", "Distributor", "Retailer", "Company"];
+  const roles = ["ADMIN","LEASER", "DISTRIBUTOR", "RETAILER", "COMPANY"];
   const [error, setError] = useState("");
   const setUser = userStore((state) => state.setUser); // Get the setUser function from the store
   const navigate = useNavigate(); // Use navigate to redirect to /dashboard
@@ -59,6 +59,7 @@ const LoginForm = ({setShowLogin}) => {
       });
 
       const result = await response.json();
+      console.log(result)
 
       if (result.status === "SUCCESS") {
         // Handle successful signup
@@ -66,6 +67,8 @@ const LoginForm = ({setShowLogin}) => {
         // setUser(result.data)
         localStorage.setItem("token", result?.data.JWTToken)
         localStorage.setItem("role", result?.data.role)
+        localStorage.setItem("email", result?.data.email)
+
         window.location.reload()
       } else {
         // Handle errors (e.g., email already exists)

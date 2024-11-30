@@ -11,6 +11,7 @@ import {
   Paper,
   Typography,
   IconButton,
+  Box,
 } from "@mui/material";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { useTheme } from "@emotion/react";
@@ -168,7 +169,7 @@ const LeasersTable = () => {
       overflowX: 'auto',  // Scroll horizontally if the content exceeds the width
     }} >
         <Table>
-          <TableHead sx={{ backgroundColor:mode==="dark"?"#1e1e1e": "#F1F4F9" }}>
+          <TableHead sx={{ backgroundColor:mode==="dark"?"#343434": "#F1F4F9" }}>
             <TableRow>
               <TableCell>Sr No</TableCell>
               <TableCell>Leaser ID</TableCell>
@@ -177,7 +178,7 @@ const LeasersTable = () => {
               <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody sx={{ backgroundColor:mode==="dark"?"#343434": "#F1F4F9" }}>
             {leasers.map((leaser,index) => (
               <TableRow key={leaser.roleId}>
                 <TableCell>{index+1}</TableCell>
@@ -290,9 +291,11 @@ const LeasersTable = () => {
                   </TableBody>
                 </Table>
               </TableContainer>
-              <Button onClick={() => setSelectedRoyaltyPass(delivery.deliveryNo)} variant="contained" color="primary">
+              <Box py={3}>
+              <Button onClick={() => setSelectedRoyaltyPass(null)} variant="contained" color="primary" sx={{backgroundColor:"#140D49"}}>
                 Back to Royalty Passes
               </Button>
+              </Box>
             </>
           )}
         </div>

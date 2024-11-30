@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid';
 const StyledGridItem = styled(Grid)(({ theme }) => ({
   paddingLeft: theme.spacing(1), // Corresponds to px={1}
   paddingRight: theme.spacing(1), // Corresponds to px={1}\
-  border:"1px solid #E5E5EF",
+  border: theme.palette.mode === "dark"?"1px solid #5a5a5a ": "1px solid #E5E5EF",
 
 }));
 

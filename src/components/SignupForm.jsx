@@ -24,7 +24,7 @@ const SignupForm = ({ setShowSignup,setShowLogin }) => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false); // To show loading during request
   const [role, setRole] = useState(""); // State for selected role
-  const roles = ["admin","Leaser", "Government", "Distributor", "Retailer", "Company"];
+  const roles = ["ADMIN","LEASER", "DISTRIBUTOR", "RETAILER", "COMPANY"];
   const [error, setError] = useState("");
   const setUser = userStore((state) => state.setUser); // Get the setUser function from the store
   const navigate = useNavigate(); // Use navigate to redirect to /dashboard

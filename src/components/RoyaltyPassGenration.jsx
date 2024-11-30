@@ -67,8 +67,9 @@ const RoyaltyPassGenration = () => {
 
   const issueRoyaltyPass = async () => {
     setLoading(true);
+    const email = localStorage.getItem("email")
     const payload = {
-      email: 'parimi.sandeep@aicerts.io',  // Adjust this email dynamically if needed
+      email: email,  // Adjust this email dynamically if needed
       royaltyPassNo: data.royaltyPassNo, // Use the fetched royalty pass number
       leaserId: data.leaserId,
       issuedDate: data.issuedDate,
@@ -98,11 +99,52 @@ const RoyaltyPassGenration = () => {
       const response = await axios.post(import.meta.env.VITE_ISSUE_ROYALTY_PASS, payload);
       if (response.data.code === 200) {
         setAlert({ open: true, message: 'Royalty Pass issued successfully!', severity: 'success' });
+        setData({
+          royaltyPassNo: '',
+          leaserId: '',
+          issuedDate: '',
+          leaseValidUpto: '',
+          SSPNumber: '',
+          village: '',
+          taluka: '',
+          district: '',
+          mineralName: '',
+          mineralGrade: '',
+          initialQuantatity: 0,
+          journeyStartDate: '',
+          journeyEndDate: '',
+          distance: '',
+          duration: '',
+          driverName: '',
+          driverLiceneceNo: '',
+          driverMobileNumber: '',
+          vehicleType: '',
+          vehicleNumber: '',
+          weightBridgeName: '',
+          destinaton: '',
+          address: '',
+
+        })
+        
       } else {
-        setAlert({ open: true, message: response.data.message, severity: 'error' });
+        setAlert({ open: true, message: response.data.message || "something went wrong", severity: 'error' });
       }
     } catch (error) {
-      setAlert({ open: true, message: 'Failed to issue Royalty Pass. Please try again.', severity: 'error' });
+      if (error.response && error.response.status === 400) {
+        // Handle specific 400 error response
+        setAlert({
+          open: true,
+          message: error.response.data.message || "Bad request. Please check the input data.",
+          severity: "error",
+        });
+      } else {
+        // Handle generic errors
+        setAlert({
+          open: true,
+          message: "Failed to issue Royalty  Pass. Please try again.",
+          severity: "error",
+        });
+      }
     }
     setLoading(false);
   };
@@ -114,8 +156,8 @@ const RoyaltyPassGenration = () => {
      
 
       {/* Details Section */}
-      <Paper variant="outlined" sx={{ p: 3, bgcolor: mode === 'dark' ? '#1c1c1c' : '#f9f9f9' }}>
-      <Box display="flex" justifyContent="space-between" mb={3} bgcolor={mode==="dark"?"#1c1c1c":"#F1F4F9"} p={2} flexDirection={"column"} gap={2}>
+      <Paper variant="outlined" sx={{ p: 3, bgcolor: mode === "dark" ? "#343434" : "#f9f9f9" }}>
+      <Box display="flex" justifyContent="space-between" mb={3} bgcolor={mode==="dark"?"#343434":"#F1F4F9"} p={2} flexDirection={"column"} gap={2}>
         <Typography variant='h6' fontWeight={"bold"}>
           ISSUE ROYALTY PASS
 
@@ -141,7 +183,7 @@ const RoyaltyPassGenration = () => {
        </Box>
       </Box>
      
-      <Grid container spacing={0} border= "1px solid #E5E5EF" p={2}>
+      <Grid container spacing={0} sx={{border: mode === "dark" ? "1px solid #5a5a5a" :"1px solid #E5E5EF"  }} p={2}>
   <StyledGridItem item xs={4} px={1}>
     <Subtitle variant="subtitle2">Leaser Id:</Subtitle>
     <SubtitleValue>{data.leaserId || '-'}</SubtitleValue>
@@ -229,7 +271,8 @@ const RoyaltyPassGenration = () => {
 <StyledGridItem item xs={4} sx={{
     display:"flex",
     justifyContent:"flex-end",
-    alignItems:"flex-end"
+    alignItems:"flex-end",
+    border:"none"
   }}>
   <Button
    onClick={issueRoyaltyPass}

@@ -16,15 +16,17 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import InsertChartIcon from '@mui/icons-material/InsertChart';
 import { Button, Switch } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import WbIncandescentIcon from '@mui/icons-material/WbIncandescent';
 import { useThemeContext } from './ThemeContext';
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 
-const drawerWidth = 260;
+const drawerWidth = 300;
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -43,7 +45,7 @@ const closedMixin = (theme) => ({
   overflowX: 'hidden',
   width: `calc(${theme.spacing(7)} + 1px)`,
   [theme.breakpoints.up('sm')]: {
-    width: `calc(${theme.spacing(8)} + 1px)`,
+    width: `calc(${theme.spacing(9.5)} + 1px)`,
   },
 });
 
@@ -85,6 +87,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     flexShrink: 0,
     whiteSpace: 'nowrap',
     boxSizing: 'border-box',
+   
+    
     variants: [
       {
         props: ({ open }) => open,
@@ -108,6 +112,7 @@ export default function SideBar() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [selected, setSelected] = React.useState('/dashboard');  // Default selected tab
+  const [hovered, setHovered] = React.useState(false);
 
   const handleLogout = ()=>{
     localStorage.removeItem("token")
@@ -116,6 +121,11 @@ export default function SideBar() {
   }
 
   const { toggleTheme, mode } = useThemeContext();
+  const location = useLocation();
+
+React.useEffect(() => {
+    setSelected(location.pathname); // Update selected based on current path
+}, [location.pathname]);
 
     // Function to handle tab click
     const handleListItemClick = (path) => {
@@ -123,17 +133,38 @@ export default function SideBar() {
     }
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box >
       <CssBaseline />
      
-      <Drawer variant="permanent" open={open}>
+      <Drawer variant="permanent" open={open} sx={{
+    '& .MuiDrawer-paper': {
+      backgroundColor: mode === 'dark' ? '#343434' : '#fff', // Change the colors as per your design
+      color: mode === 'dark' ? '#fff' : '#000',          // Adjust text color
+    },
+  }} >
      <Box display={"flex"} alignItems={"center"}>
-      <Box onClick={() => setOpen(!open)} bgcolor={"#140D49"} p={1} borderRadius={3} mx={1}>
-        <Typography variant='h5' color='white' fontWeight={700}>
+     <Box
+      onClick={() => setOpen(!open)}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      bgcolor={"#140D49"}
+      p={1}
+      borderRadius={3}
+      mx={1}
+      sx={{ cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", width:"50px", height:"50px", }}
+    >
+      {hovered ? (
+        open ? (
+          <KeyboardDoubleArrowLeftIcon  style={{ color: "white", fontSize:"35px" }} />
+        ) : (
+          <KeyboardDoubleArrowRightIcon style={{ color: "white" ,fontSize:"35px" }} />
+        )
+      ) : (
+        <Typography variant="h5" color="white" fontWeight={700}>
           GC
-
         </Typography>
-      </Box>
+      )}
+    </Box>
    
   <Typography
   variant="h6"
@@ -155,46 +186,36 @@ export default function SideBar() {
         <Link to="/dashboard" style={{ textDecoration: 'none', color: 'inherit' }}>
         <ListItem key={"dashboard"} disablePadding sx={{ display: 'block' ,paddingX:"10px" }}>
        
-              <ListItemButton
-               onClick={() => handleListItemClick('/dashboard')}
-               sx={{
-               
-                 backgroundColor: selected === '/dashboard' ? '#F5F5F5' : 'transparent',  // Change background color for selected tab
-                 color:selected === '/dashboard' ? '#140D49' : 'black',
-                 minHeight: 48,
-               
-                 borderLeft: selected ==="/dashboard"?"3px solid #140D49 ":""
-                
-               
-               }}
-              >
-                <ListItemIcon
-                  sx={[
-                    {
-                      minWidth: 0,
-                    
-                     
-                    },
-                    open
-                      ? {
-                          mr: 3,
-                        }
-                      : {
-                          mr: 'auto',
-                        },
-                  ]}
-                >
-                 <HomeIcon sx={{ color: mode==="dark"?"black": "#140D49 !important" }}
- />
-                </ListItemIcon>
-               
-                <ListItemText
-                  primary={"Dashboard"}
-                  sx={[open ? { opacity: 1 } : { opacity: 0 }]}
-                />
-             
-              </ListItemButton>
-             
+        <ListItemButton
+  onClick={() => handleListItemClick('/dashboard')}
+  sx={{
+    backgroundColor: selected === '/dashboard' 
+      ? theme.palette.mode === 'dark' 
+        ? '#444444' // Dark mode active panel color
+        : '#F5F5F5' // Light mode active panel color
+      : 'transparent',  
+    color: selected === '/dashboard' ? '#140D49' : 'black',
+    minHeight: 48,
+    borderLeft: selected === '/dashboard' 
+      ? `3px solid ${theme.palette.mode === 'dark' ? '#6c63ff' : '#140D49'}` 
+      : '',
+  }}
+>
+  <ListItemIcon
+    sx={{
+      color: theme.palette.mode === 'dark' ? 'white' : '#140D49', // Icon color based on theme
+    }}
+  >
+    <HomeIcon />
+  </ListItemIcon>
+  <ListItemText
+    primary={"Dashboard"}
+    style={{
+      color: theme.palette.mode === 'dark' ? 'white' : '#140D49', // Icon color based on theme
+    }}
+    sx={[open ? { opacity: 1 } : { opacity: 0 }]}
+  />
+</ListItemButton>
             </ListItem>
             </Link>
         </List>
@@ -205,35 +226,31 @@ export default function SideBar() {
               <ListItemButton
                 onClick={() => handleListItemClick('/manage-leaser')}
                 sx={{
-                
-                  backgroundColor: selected === '/manage-leaser' ? '#F5F5F5' : 'transparent',  // Change background color for selected tab
-                  color:selected === '/manage-leaser' ? '#140D49' : 'black',
+                  backgroundColor: selected === '/manage-leaser' 
+                    ? theme.palette.mode === 'dark' 
+                      ? '#444444' // Dark mode active panel color
+                      : '#F5F5F5' // Light mode active panel color
+                    : 'transparent',  
+                  color: selected === '/manage-leaser' ? '#140D49' : 'black',
                   minHeight: 48,
-                   borderLeft: selected ==="/manage-leaser"?"3px solid #140D49 ":""
-                
-                
+                  borderLeft: selected === '/manage-leaser' 
+                    ? `3px solid ${theme.palette.mode === 'dark' ? '#6c63ff' : '#140D49'}` 
+                    : '',
                 }}
               >
                 <ListItemIcon
-                  sx={[
-                    {
-                      minWidth: 0,
-                      justifyContent: 'center',
-                    },
-                    open
-                      ? {
-                          mr: 3,
-                        }
-                      : {
-                          mr: 'auto',
-                        },
-                  ]}
+                  sx={{
+                    color: theme.palette.mode === 'dark' ? 'white' : '#140D49', // Icon color based on theme
+                  }}
                 >
-                  <InsertChartIcon sx={{ color: "#140D49 !important" }} />
+                  <InsertChartIcon />
                 </ListItemIcon>
               
                 <ListItemText
                   primary={"Issuance"}
+                  style={{
+                    color: theme.palette.mode === 'dark' ? 'white' : '#140D49', // Icon color based on theme
+                  }}
                   sx={[open ? { opacity: 1 } : { opacity: 0 }]}
                 />
               
@@ -251,8 +268,8 @@ export default function SideBar() {
                onClick={handleLogout}
                sx={{
                 marginX:"10px",
-                 backgroundColor: '#F5F5F5',
-                 color:  '#140D49',
+                 backgroundColor: theme.palette.mode ==="dark"? "none": '#F5F5F5',
+                 color: theme.palette.mode === "dark" ? "white": "#140D49",
                  minHeight: 48,
                  px: 2.5,
                
@@ -275,7 +292,7 @@ export default function SideBar() {
                         },
                   ]}
                 >
-                 <LogoutIcon sx={{ color: "#140D49 !important" }}
+                 <LogoutIcon sx={{ color: theme.palette.mode === "dark"? "white": "#140D49" }}
  />
                 </ListItemIcon>
                
@@ -294,17 +311,17 @@ export default function SideBar() {
                 onClick={toggleTheme} // Call toggleTheme here
                 sx={{
                   marginX: "10px",
-                  backgroundColor: '#F5F5F5',
-                  color: '#140D49',
+                  backgroundColor: theme.palette.mode ==="dark"? "none": '#F5F5F5',
+                  color: theme.palette.mode === "dark" ? "white": "#140D49",
                   minHeight: 48,
                   px: 2.5,
                 }}
               >
                 <ListItemIcon>
-                  <WbIncandescentIcon sx={{ color: "#140D49 !important" }} />
+                  <WbIncandescentIcon sx={{ color: theme.palette.mode === "dark"? "white": "#140D49" }} />
                 </ListItemIcon>
                 <ListItemText
-                  primary={`View Mode: ${mode === 'light' ? 'Light' : 'Dark'}`} // Show the current mode
+                  primary={`View Mode`} // Show the current mode
                   sx={[open ? { opacity: 1 } : { opacity: 0 }]}
                 />
               </ListItemButton>

@@ -36,7 +36,7 @@ const StatsCard = ({ title, value, iconSrc, growthText, isPositive }) => {
   
     
   return (
-    <CardContainer sx={{ bgcolor:mode =="dark"?"#1e1e1e":"white"  }}>
+    <CardContainer sx={{ bgcolor:mode =="dark"?"#343434":"white"  }}>
       <StatDetails>
         <Typography variant="body2" color="textSecondary">
           {title}
@@ -44,11 +44,7 @@ const StatsCard = ({ title, value, iconSrc, growthText, isPositive }) => {
         <Typography variant="h5" fontWeight="bold">
           {value}
         </Typography>
-        {growthText && (
-          <StatGrowth isPositive={isPositive}>
-            {growthText}
-          </StatGrowth>
-        )}
+       
       </StatDetails>
       <Avatar
         src={iconSrc}
