@@ -74,11 +74,13 @@ const RoyaltyPassGenration = () => {
         return;
       }
       setData(response.data.details);
+
       setAlert({
         open: true,
         message: "Data fetched successfully!",
         severity: "success",
       });
+
     } catch (error) {
       setAlert({
         open: true,
@@ -198,6 +200,7 @@ const RoyaltyPassGenration = () => {
           variant="outlined"
           sx={{ p: 3, bgcolor: mode === "dark" ? "#343434" : "#f9f9f9" }}
         >
+
           <Box
             display="flex"
             justifyContent="space-between"
@@ -272,6 +275,7 @@ const RoyaltyPassGenration = () => {
               <Subtitle variant="subtitle2">Mineral Grade:</Subtitle>
               <SubtitleValue>{data.mineralGrade || "-"}</SubtitleValue>
             </StyledGridItem>
+
 
             <StyledGridItem item xs={4}>
               <Subtitle variant="subtitle2">Journey Start Date:</Subtitle>

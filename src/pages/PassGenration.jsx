@@ -63,9 +63,10 @@ const PassGenration = () => {
       {/* <Box display="flex" width="100%" height="100%" py={3} bgcolor={mode === 'dark' ? '#1c1c1c' : '#E5E5EF'} pr={5}> */}
 
       {/* Conditional Rendering based on role */}
-      {/* {(role === 'ADMIN' || role === 'LEASER') && (tabName==='RP' ? : <DelivaryPassGenration />)} */}
+      {/* {(role === 'Admin' || role === 'Leaser') && (tabName==='RP' ? : <DelivaryPassGenration />)} */}
       {/* </Box> */}
     </>
+
   );
 };
 

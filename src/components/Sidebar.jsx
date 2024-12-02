@@ -25,7 +25,7 @@ import { useThemeContext } from "./ThemeContext";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 
-const drawerWidth = 300;
+const drawerWidth = 310;
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -143,6 +143,7 @@ export default function SideBar() {
     <Box>
       <CssBaseline />
 
+
       <Drawer
         variant="permanent"
         open={open}
@@ -213,6 +214,7 @@ export default function SideBar() {
               disablePadding
               sx={{ display: "block", paddingX: "10px" }}
             >
+
               <ListItemButton
                 onClick={() => handleListItemClick("/dashboard")}
                 sx={{

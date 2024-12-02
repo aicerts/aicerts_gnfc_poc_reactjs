@@ -36,7 +36,7 @@ const StatsCard = ({ title, value, iconSrc, growthText, isPositive }) => {
   
     
   return (
-    <CardContainer sx={{ bgcolor:mode =="dark"?"#343434":"white"  }}>
+    <CardContainer sx={{ bgcolor:mode =="dark"?"#343434":"white", borderRadius:"10px"  }}>
       <StatDetails>
         <Typography variant="body2" color="textSecondary">
           {title}

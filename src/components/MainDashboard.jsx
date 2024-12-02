@@ -60,7 +60,7 @@ const MainDashboard = () => {
             item
             xs={12}
             display="flex"
-            height="120px"
+            height="100px"
             justifyContent="center"
             gap={1}
           >

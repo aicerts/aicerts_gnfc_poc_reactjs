@@ -15,7 +15,7 @@ const LoginForm = ({setShowLogin}) => {
   const [password, setPassword]=useState("")
   const [loading, setLoading] = useState(false); // To show loading during request
   const [role, setRole] = useState("") // State for selected role
-  const roles = ["ADMIN","LEASER", "DISTRIBUTOR", "RETAILER", "COMPANY"];
+  const roles = ["Admin","Leaser", "Distributor", "Retailer", "Company"];
   const [error, setError] = useState("");
   const setUser = userStore((state) => state.setUser); // Get the setUser function from the store
   const navigate = useNavigate(); // Use navigate to redirect to /dashboard
@@ -148,7 +148,7 @@ const LoginForm = ({setShowLogin}) => {
           >
             {roles.map((roleOption) => (
               <BlurMenuItem key={roleOption} value={roleOption}>
-              {roleOption}
+              {roleOption.toUpperCase()}
             </BlurMenuItem>
             ))}
           </Select>
