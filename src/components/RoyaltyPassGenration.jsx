@@ -54,6 +54,7 @@ const RoyaltyPassGenration = () => {
         return
       }
       setData(response.data.details);
+      console.log(response.data.details)
       setAlert({ open: true, message: 'Data fetched successfully!', severity: 'success' });
     } catch (error) {
       setAlert({ open: true, message: 'Failed to fetch details. Please check the ID and try again.', severity: 'error' });
@@ -185,100 +186,101 @@ const RoyaltyPassGenration = () => {
      
       <Grid container spacing={0} sx={{border: mode === "dark" ? "1px solid #5a5a5a" :"1px solid #E5E5EF"  }} p={2}>
   <StyledGridItem item xs={4} px={1}>
-    <Subtitle variant="subtitle2">Leaser Id:</Subtitle>
-    <SubtitleValue>{data.leaserId || '-'}</SubtitleValue>
+    <Subtitle variant="subtitle2">Lease Holder</Subtitle>
+    <SubtitleValue>{data.leaserId === ""?"" : data.leaserId || "NA"}</SubtitleValue>
   </StyledGridItem>
   <StyledGridItem item xs={4}>
-    <Subtitle variant="subtitle2">Issue Date:</Subtitle>
+    <Subtitle variant="subtitle2">Issue Date & Time</Subtitle>
     <SubtitleValue>{data.issuedDate || '-'}</SubtitleValue>
   </StyledGridItem>
   <StyledGridItem item xs={4}>
     <Subtitle variant="subtitle2">SSP Number:</Subtitle>
-    <SubtitleValue>{data.SSPNumber || '-'}</SubtitleValue>
+    <SubtitleValue>{data.SSPNumber === "" ? "" : data.SSPNumber || "NA"}</SubtitleValue>
   </StyledGridItem>
   <StyledGridItem item xs={4}>
     <Subtitle variant="subtitle2">Village/Survey Number:</Subtitle>
-    <SubtitleValue>{data.village || '-'}</SubtitleValue>
+    <SubtitleValue>{data.village === "" ? "" : data.village || "NA"}</SubtitleValue>
+  </StyledGridItem>
+  <StyledGridItem item xs={4}>
+    <Subtitle variant="subtitle2">Lease Valid Up to Date:</Subtitle>
+    <SubtitleValue>{data.leaseValidUpto === "" ? "" : data.leaseValidUpto || "NA"}</SubtitleValue>
   </StyledGridItem>
   <StyledGridItem item xs={4}>
     <Subtitle variant="subtitle2">District:</Subtitle>
-    <SubtitleValue>{data.district || '-'}</SubtitleValue>
-  </StyledGridItem>
-  <StyledGridItem item xs={4}>
-    <Subtitle variant="subtitle2">Mineral Name:</Subtitle>
-    <SubtitleValue>{data.mineralName || '-'}</SubtitleValue>
-  </StyledGridItem>
-  
-  <StyledGridItem item xs={4}>
-    <Subtitle variant="subtitle2">Mineral Grade:</Subtitle>
-    <SubtitleValue>{data.mineralGrade || '-'}</SubtitleValue>
-  </StyledGridItem>
-
-  <StyledGridItem item xs={4}>
-    <Subtitle variant="subtitle2">Journey Start Date:</Subtitle>
-    <SubtitleValue>{data.journeyStartDate || '-'}</SubtitleValue>
-  </StyledGridItem>
-  <StyledGridItem item xs={4}>
-    <Subtitle variant="subtitle2">Distance:</Subtitle>
-    <SubtitleValue>{data.distance || '-'}</SubtitleValue>
-  </StyledGridItem>
-  <StyledGridItem item xs={4}>
-    <Subtitle variant="subtitle2">Driver Name:</Subtitle>
-    <SubtitleValue>{data.driverName || '-'}</SubtitleValue>
-  </StyledGridItem>
-  <StyledGridItem item xs={4}>
-    <Subtitle variant="subtitle2">Driver Mobile Number:</Subtitle>
-    <SubtitleValue>{data.driverMobileNumber || '-'}</SubtitleValue>
-  </StyledGridItem>
-  <StyledGridItem item xs={4}>
-    <Subtitle variant="subtitle2">Weighbridge Name:</Subtitle>
-    <SubtitleValue>{data.weightBridgeName || '-'}</SubtitleValue>
-  </StyledGridItem>
-  <StyledGridItem item xs={4}>
-    <Subtitle variant="subtitle2">Destination/Address:</Subtitle>
-    <SubtitleValue>{data.destinaton || '-'}</SubtitleValue>
-  </StyledGridItem>
-  <StyledGridItem item xs={4}>
-    <Subtitle variant="subtitle2">Lease Valid Up-to-Date:</Subtitle>
-    <SubtitleValue>{data.leaseValidUpto || '-'}</SubtitleValue>
+    <SubtitleValue>{data.district === "" ? "" : data.district || "NA"}</SubtitleValue>
   </StyledGridItem>
   <StyledGridItem item xs={4}>
     <Subtitle variant="subtitle2">Taluka:</Subtitle>
-    <SubtitleValue>{data.taluka || '-'}</SubtitleValue>
+    <SubtitleValue>{data.taluka === "" ? "" : data.taluka || "NA"}</SubtitleValue>
   </StyledGridItem>
   <StyledGridItem item xs={4}>
+  <Subtitle variant="subtitle2">Mineral Name (Grade)</Subtitle>
+  <SubtitleValue>
+    {data.mineralName === "" ? "" : data.mineralName || "NA"}
+    {data.mineralGrade === "" ? "" : ` (${data.mineralGrade || "NA"})`}
+  </SubtitleValue>
+</StyledGridItem>
+
+<StyledGridItem item xs={4}>
     <Subtitle variant="subtitle2">Initial Quantity:</Subtitle>
-    <SubtitleValue>{data.initialQuantatity || '-'}</SubtitleValue>
+    <SubtitleValue>{data.initialQuantatity === "" ? "" : data.initialQuantatity || "NA"}</SubtitleValue>
   </StyledGridItem>
+
+
+  <StyledGridItem item xs={4}>
+    <Subtitle variant="subtitle2">Journey Start Date:</Subtitle>
+    <SubtitleValue>{data.journeyStartDate === "" ? "" : data.journeyStartDate || "NA"}</SubtitleValue>
+  </StyledGridItem>
+   
   <StyledGridItem item xs={4}>
     <Subtitle variant="subtitle2">Journey End Date:</Subtitle>
-    <SubtitleValue>{data.journeyEndDate || '-'}</SubtitleValue>
+    <SubtitleValue>{data.journeyEndDate === "" ? "" : data.journeyEndDate || "NA"}</SubtitleValue>
+  </StyledGridItem>
+  <StyledGridItem item xs={4}>
+    <Subtitle variant="subtitle2">Distance:</Subtitle>
+    <SubtitleValue>{data.distance === "" ? "" : data.distance || "NA"}</SubtitleValue>
   </StyledGridItem>
   <StyledGridItem item xs={4}>
     <Subtitle variant="subtitle2">Duration:</Subtitle>
-    <SubtitleValue>{data.duration || '-'}</SubtitleValue>
+    <SubtitleValue>{data.duration === "" ? "" : data.duration || "NA"}</SubtitleValue>
   </StyledGridItem>
+  <StyledGridItem item xs={4}>
+    <Subtitle variant="subtitle2">Driver Name:</Subtitle>
+    <SubtitleValue>{data.driverName === "" ? "" : data.driverName || "NA"}</SubtitleValue>
+  </StyledGridItem>
+  
+  
   <StyledGridItem item xs={4}>
     <Subtitle variant="subtitle2">Driver's License Number:</Subtitle>
-    <SubtitleValue>{data.driverLiceneceNo || '-'}</SubtitleValue>
+    <SubtitleValue>{data.driverLiceneceNo === "" ? "" : data.driverLiceneceNo || "NA"}</SubtitleValue>
   </StyledGridItem>
   <StyledGridItem item xs={4}>
-    <Subtitle variant="subtitle2">Vehicle Type/Number:</Subtitle>
-    <SubtitleValue>{data.vehicleType || '-'} / {data.vehicleNumber || '-'}</SubtitleValue>
+    <Subtitle variant="subtitle2">Driver Mobile Number:</Subtitle>
+    <SubtitleValue>{data.driverMobileNumber === "" ? "" : data.driverMobileNumber || "NA"}</SubtitleValue>
   </StyledGridItem>
+  <StyledGridItem item xs={4}>
+    <Subtitle variant="subtitle2">Weighbridge Name:</Subtitle>
+    <SubtitleValue>{data.weightBridgeName === "" ? "" : data.weightBridgeName || "NA"}</SubtitleValue>
+  </StyledGridItem>
+  <StyledGridItem item xs={4}>
+    <Subtitle variant="subtitle2">Destination/Address:</Subtitle>
+    <SubtitleValue>{data.destinaton === "" ? "" : data.destinaton || "NA"}</SubtitleValue>
+  </StyledGridItem>
+
 
 </Grid>
 <StyledGridItem item xs={4} sx={{
     display:"flex",
     justifyContent:"flex-end",
     alignItems:"flex-end",
-    border:"none"
+    border:"none",
+    pt:1
   }}>
   <Button
    onClick={issueRoyaltyPass}
          
          disabled={loading}
-         sx={{ ml: 2, width:"30%", bgcolor:"#140D49" , color:"white", '&.Mui-disabled': { color: 'white' }, }}
+         sx={{ ml: 2, width:"30%", bgcolor:"#140D49" , color:"white", '&.Mui-disabled': { color: 'white' }, py:2 }}
        >
          {loading ? 'Loading...' : 'Issue Royalty Pass'}
        </Button>

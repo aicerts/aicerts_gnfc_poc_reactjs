@@ -26,7 +26,7 @@ import { useThemeContext } from './ThemeContext';
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 
-const drawerWidth = 300;
+const drawerWidth = 310;
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -142,14 +142,15 @@ React.useEffect(() => {
       color: mode === 'dark' ? '#fff' : '#000',          // Adjust text color
     },
   }} >
-     <Box display={"flex"} alignItems={"center"}>
+     <Box display={"flex"} alignItems={"center"} py={2} gap={1}>
      <Box
       onClick={() => setOpen(!open)}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       bgcolor={"#140D49"}
-      p={1}
+      px={1}
       borderRadius={3}
+     
       mx={1}
       sx={{ cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", width:"50px", height:"50px", }}
     >
@@ -166,22 +167,22 @@ React.useEffect(() => {
       )}
     </Box>
    
-  <Typography
+    <Typography
   variant="h6"
   sx={{
-    fontSize: "24px", // Adjust font size as needed
-    color: mode==="dark"?"white": "#140D49", // Set the desired color
+    fontSize: "25px", // Adjust font size as needed
+    fontFamily: "'Poppins', sans-serif",
+    color: mode === "dark" ? "white" : "#140D49", // Set the desired color
     fontWeight: 700, // Optional: adjust font weight
-    whiteSpace: "pre-wrap", // Allows line breaks with \n
-    paddingLeft:"10px"
-
+    whiteSpace: "nowrap", // Prevents line breaks
+    
   }}
 >
-  GNFC/{"\n"}CERTS365
+  GNFC/CERTs365
 </Typography>
      </Box>
   
-        <Divider />
+        <Divider /> 
         <List sx={{marginTop:"10px"}}>
         <Link to="/dashboard" style={{ textDecoration: 'none', color: 'inherit' }}>
         <ListItem key={"dashboard"} disablePadding sx={{ display: 'block' ,paddingX:"10px" }}>

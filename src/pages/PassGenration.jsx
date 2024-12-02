@@ -22,7 +22,7 @@ const PassGenration = () => {
    
       
       {/* Conditional Rendering based on role */}
-      {role === 'ADMIN' || role === 'LEASER' ? <RoyaltyPassGenration /> : <DelivaryPassGenration />}
+      {role === 'Admin' || role === 'Leaser' ? <RoyaltyPassGenration /> : <DelivaryPassGenration />}
     </Box>
   );
 };
