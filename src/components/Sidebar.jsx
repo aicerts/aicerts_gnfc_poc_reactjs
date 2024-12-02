@@ -248,7 +248,7 @@ export default function SideBar() {
             </ListItem>
           </Link>
         </List>
-        {(role === "ADMIN" || role === "LEASER") && (
+        {(role === "Admin" || role === "Leaser") && (
           <List>
             <Link
               to="/manage-leasers"

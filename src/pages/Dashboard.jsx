@@ -27,16 +27,6 @@ const NAVIGATION = [
     segment: "manage-leasers",
     title: "Manage Leasers",
     icon: <InsertChartIcon sx={{ color: "#140D49 !important" }} />,
-    children: [
-      {
-        segment: "add-leaser",
-        title: "Add Leaser",
-      },
-      {
-        segment: "list-leasers",
-        title: "List Leasers",
-      },
-    ],
   },
   {
     kind: "divider",

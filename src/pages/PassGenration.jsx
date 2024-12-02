@@ -24,7 +24,17 @@ const PassGenration = () => {
           <TabList
             onChange={handleChange}
             aria-label="lab API tabs example"
-            style={{ background: mode === "dark" ? "#1c1c1c" : "#E5E5EF" }}
+            style={{ background: mode === "dark" ? "#1c1c1c" : "#E5E5EF", color:"#140D49" }}
+            sx={{
+              backgroundColor: mode === "dark" ? "#1c1c1c" : "#E5E5EF", // Background color for the TabList
+              '& .MuiTab-root': {
+                color: mode === "dark" ? "#ffffff" : "#140D49", // Default tab text color
+                '&.Mui-selected': {
+                  color: "#140D49",
+                  borderBottom: "3px solid #140D49", // Text color for the selected tab
+                },
+              },
+            }}
           >
             <Tab label="Royalty Pass" value="RP" />
             <Tab label="Delivary Pass" value="DP" />
@@ -33,6 +43,11 @@ const PassGenration = () => {
         <TabPanel
           value="RP"
           style={{ background: mode === "dark" ? "#1c1c1c" : "#E5E5EF" }}
+          sx={{
+            '&.Mui-selected': {
+              borderBottom: "3px solid #140D49", // Custom border for the selected tab
+            },
+          }}
         >
           <RoyaltyPassGenration />
         </TabPanel>
