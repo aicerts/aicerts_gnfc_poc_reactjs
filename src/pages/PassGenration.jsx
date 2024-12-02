@@ -19,27 +19,53 @@ const PassGenration = () => {
 
   return (
     <>
-      <TabContext value={tabName}>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <TabList
-            onChange={handleChange}
-            aria-label="lab API tabs example"
-            style={{ background: mode === "dark" ? "#1c1c1c" : "#E5E5EF", color:"#140D49" }}
-            sx={{
-              backgroundColor: mode === "dark" ? "#1c1c1c" : "#E5E5EF", // Background color for the TabList
-              '& .MuiTab-root': {
-                color: mode === "dark" ? "#ffffff" : "#140D49", // Default tab text color
-                '&.Mui-selected': {
-                  color: "#140D49",
-                  borderBottom: "3px solid #140D49", // Text color for the selected tab
-                },
-              },
-            }}
-          >
-            <Tab label="Royalty Pass" value="RP" />
-            <Tab label="Delivary Pass" value="DP" />
-          </TabList>
-        </Box>
+      <TabContext value={tabName}  >
+      <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%" }}>
+      <TabList
+  onChange={handleChange}
+  aria-label="lab API tabs example"
+  sx={{
+    width: "100%", // Ensures the TabList spans the full width
+    display: "flex", // Makes it a flex container
+    alignItems: "center", // Aligns items vertically in the center
+    justifyContent: "space-between", // Ensures equal spacing for tabs
+    backgroundColor: mode === "dark" ? "#1c1c1c" : "#E5E5EF",
+    paddingLeft:6,
+    border:"none",
+   
+   
+   
+    "& .MuiTab-root": {
+      flex: 1, // Ensures each tab takes equal space
+      textAlign: "center", // Centers the tab content
+      color: mode === "dark" ? "#ffffff" : "#140D49",
+      
+
+      "&.Mui-selected": {
+        color: mode==="dark"? "white": "#140D49",
+        border:"none"
+        
+      },
+    },
+  }}
+>
+  <Tab sx={{
+    "&.Mui-selected":{
+      fontSize:"20px",
+      fontWeight:500
+    }
+  }} label="Issue Royalty Pass" value="RP" />
+  <Tab sx={{
+    "&.Mui-selected":{
+      fontSize:"20px",
+      fontWeight:500,
+    }
+  }} label="Issue Delivery Pass" value="DP" />
+</TabList>
+
+</Box>
+
+
         <TabPanel
           value="RP"
           style={{ background: mode === "dark" ? "#1c1c1c" : "#E5E5EF" }}
