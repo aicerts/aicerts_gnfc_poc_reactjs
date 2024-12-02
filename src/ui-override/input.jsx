@@ -5,9 +5,9 @@ const FormInput = ({ icon, ...props }) => {
     <TextField
       {...props}
       sx={{
-        backgroundColor: 'none',
+        backgroundColor: 'white',
         borderRadius: '8px',
-        border:"2px dashed white",
+        border:"",
         '& .MuiOutlinedInput-root': {
           '& fieldset': {
             border: 'none',
@@ -20,10 +20,10 @@ const FormInput = ({ icon, ...props }) => {
           },
         },
         '& .MuiInputLabel-root.Mui-focused': {
-          color: 'white',
+          color: 'black',
         },
         '& .MuiInputLabel-root': {
-          color: 'white',
+          color: 'black',
         },
       }}
       InputProps={{

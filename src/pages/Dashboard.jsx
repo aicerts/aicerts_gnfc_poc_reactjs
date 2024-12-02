@@ -1,68 +1,89 @@
-import * as React from 'react';
-import { extendTheme, styled } from '@mui/material/styles';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import DescriptionIcon from '@mui/icons-material/Description';
-import LayersIcon from '@mui/icons-material/Layers';
-import { AppProvider } from '@toolpad/core/AppProvider';
-import { DashboardLayout } from '@toolpad/core/DashboardLayout';
-import { PageContainer } from '@toolpad/core/PageContainer';
-import Grid from '@mui/material/Grid2';
-import DeliveryDetails from './DeliveryDetails';
+import * as React from "react";
+import { extendTheme, styled, ThemeProvider } from "@mui/material/styles";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import BarChartIcon from "@mui/icons-material/BarChart";
+import DescriptionIcon from "@mui/icons-material/Description";
+import LayersIcon from "@mui/icons-material/Layers";
+import { AppProvider } from "@toolpad/core/AppProvider";
+import { DashboardLayout } from "@toolpad/core/DashboardLayout";
+import { PageContainer } from "@toolpad/core/PageContainer";
+import Grid from "@mui/material/Grid2";
+import StatsCard from "../components/StatsCard";
+import LeasersTable from "../components/LeasersTable";
+import { Typography } from "@mui/material";
+import HomeIcon from "@mui/icons-material/Home";
+import InsertChartIcon from "@mui/icons-material/InsertChart";
+import MainDashboard from "../components/MainDashboard";
+import { useTheme } from "@emotion/react";
 
 const NAVIGATION = [
   {
-    kind: 'header',
-    title: 'Main items',
+    segment: "dashboard",
+    title: "Dashboard",
+    icon: <HomeIcon sx={{ color: "#140D49 !important" }} />,
   },
   {
-    segment: 'dashboard',
-    title: 'Dashboard',
-    icon: <DashboardIcon />,
-    path: 'dashboard',
-    
-  },
-  {
-    segment: 'delivery',
-    title: 'Delivery Details',
-    icon: <ShoppingCartIcon />,
-    path: '/delivery',
-  },
-  {
-    kind: 'divider',
-  },
-  {
-    kind: 'header',
-    title: 'Analytics',
-  },
-  {
-    segment: 'reports',
-    title: 'Reports',
-    icon: <BarChartIcon />,
+    segment: "manage-leasers",
+    title: "Manage Leasers",
+    icon: <InsertChartIcon sx={{ color: "#140D49 !important" }} />,
     children: [
       {
-        segment: 'sales',
-        title: 'Sales',
-        icon: <DescriptionIcon />,
+        segment: "add-leaser",
+        title: "Add Leaser",
       },
       {
-        segment: 'traffic',
-        title: 'Traffic',
-        icon: <DescriptionIcon />,
+        segment: "list-leasers",
+        title: "List Leasers",
       },
     ],
   },
   {
-    segment: 'integrations',
-    title: 'Integrations',
-    icon: <LayersIcon />,
+    kind: "divider",
   },
 ];
 
 const demoTheme = extendTheme({
-  colorSchemes: { light: true, dark: true },
-  colorSchemeSelector: 'class',
+  colorSchemes: {
+    light: {
+      palette: {
+        background: {
+          default: "#F5F5F5", // Set the light theme background color
+        },
+      },
+    },
+    dark: {
+      palette: {
+        background: {
+          default: "black", // Dark background color
+        },
+      },
+    },
+  },
+  components: {
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "",
+        },
+      },
+    },
+    MuiListItem: {
+      styleOverrides: {
+        root: {
+          color: "#140D49",
+        },
+      },
+    },
+    MuiLink: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "red",
+        },
+      },
+    },
+  },
+  colorSchemeSelector: "class",
   breakpoints: {
     values: {
       xs: 0,
@@ -81,17 +102,14 @@ function useDemoRouter(initialPath) {
     return {
       pathname,
       searchParams: new URLSearchParams(),
-      navigate: (path) => {
-        console.log(`Navigating to: ${path}`); // Debug navigation
-        setPathname(String(path));
-      },
+      navigate: (path) => setPathname(path), // Update pathname on navigation
     };
   }, [pathname]);
 
   return router;
 }
 
-const Skeleton = styled('div')(({ theme, height }) => ({
+const Skeleton = styled("div")(({ theme, height }) => ({
   backgroundColor: theme.palette.action.hover,
   borderRadius: theme.shape.borderRadius,
   height,
@@ -100,80 +118,60 @@ const Skeleton = styled('div')(({ theme, height }) => ({
 
 export default function Dashboard(props) {
   const { window } = props;
-
-  const router = useDemoRouter('/dashboard');
-  const renderContent = () => {
-    switch (router.pathname) {
-      case '/dashboard':
-        return <h1>Welcome to the Dashboard</h1>;
-      case '/delivery':
-        return <DeliveryDetails />;
-      case '/reports/sales':
-        return <h1>Sales Reports</h1>;
-      case '/reports/traffic':
-        return <h1>Traffic Reports</h1>;
-      case '/integrations':
-        return <h1>Integrations</h1>;
-      default:
-        return <h1>Page Not Found</h1>;
-    }
-  };
-
+  const router = useDemoRouter("/dashboard");
+  // const theme = extendTheme()
+  const theme = useTheme(); // Access the current theme
+  const isDarkMode = theme?.palette?.mode === "dark"; // Use optional chaining to avoid undefined
+  console.log("Is dark mode:", isDarkMode);
 
   // Remove this const when copying and pasting into your project.
   const demoWindow = window ? window() : undefined;
 
+  const renderContent = () => {
+    switch (router.pathname) {
+      case "/dashboard":
+        return (
+          <>
+            <MainDashboard />
+          </>
+        );
+      case "/manage-leasers":
+        return <Typography variant="h4">Orders Content</Typography>;
+      default:
+        return <Typography variant="h4">Page not found</Typography>;
+    }
+  };
+
   return (
-    <AppProvider
-      navigation={NAVIGATION}
-      router={router}
-      theme={demoTheme}
-      window={demoWindow}
-      branding={{
-        logo: <img src="https://mui.com/static/logo.png" alt="MUI logo" />,
-        title: 'Certs 365',
-      }}
-    >
-      <DashboardLayout>
-        <PageContainer>
-          {renderContent()}
-          {/* <Grid container spacing={1}>
-            <Grid size={5} />
-            <Grid size={12}>
-              <Skeleton height={14} />
-            </Grid>
-            <Grid size={12}>
-              <Skeleton height={14} />
-            </Grid>
-            <Grid size={4}>
-              <Skeleton height={100} />
-            </Grid>
-            <Grid size={8}>
-              <Skeleton height={100} />
-            </Grid>
-
-            <Grid size={12}>
-              <Skeleton height={150} />
-            </Grid>
-            <Grid size={12}>
-              <Skeleton height={14} />
-            </Grid>
-
-            <Grid size={3}>
-              <Skeleton height={100} />
-            </Grid>
-            <Grid size={3}>
-              <Skeleton height={100} />
-            </Grid>
-            <Grid size={3}>
-              <Skeleton height={100} />
-            </Grid>
-            <Grid size={3}>
-              <Skeleton height={100} />
-            </Grid>
-          </Grid> */}
-        </PageContainer>
-      </DashboardLayout>
-    </AppProvider>
+    <ThemeProvider theme={demoTheme}>
+      <AppProvider
+        navigation={NAVIGATION}
+        router={router}
+        theme={demoTheme}
+        window={demoWindow}
+        branding={{
+          logo: <img src="/icons/AG.png" alt="MUI logo" />,
+          title: (
+            <Typography
+              variant="h6"
+              sx={{
+                fontSize: "24px", // Adjust font size as needed
+                color: "#140D49", // Set the desired color (example: red)
+                fontWeight: 700, // Optional: adjust font weight
+              }}
+            >
+              ASSURANCE GATEWAY
+            </Typography>
+          ),
+        }}
+      >
+        <DashboardLayout>
+          <PageContainer>
+            {renderContent()}{" "}
+            {/* Dynamically render content based on pathname */}
+          </PageContainer>
+        </DashboardLayout>
+      </AppProvider>
+    </ThemeProvider>
   );
 }

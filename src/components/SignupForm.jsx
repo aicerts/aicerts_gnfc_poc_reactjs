@@ -24,7 +24,7 @@ const SignupForm = ({ setShowSignup,setShowLogin }) => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false); // To show loading during request
   const [role, setRole] = useState(""); // State for selected role
-  const roles = ["Leaser", "Government", "Distributor", "Retailer", "Company"];
+  const roles = ["ADMIN","LEASER", "DISTRIBUTOR", "RETAILER", "COMPANY"];
   const [error, setError] = useState("");
   const setUser = userStore((state) => state.setUser); // Get the setUser function from the store
   const navigate = useNavigate(); // Use navigate to redirect to /dashboard
@@ -60,7 +60,7 @@ const SignupForm = ({ setShowSignup,setShowLogin }) => {
 
     try {
       // Make the API request
-      const response = await fetch("http://localhost:8000/api/user-signup", {
+      const response = await fetch(import.meta.env.VITE_USER_SIGNUP, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -74,7 +74,7 @@ const SignupForm = ({ setShowSignup,setShowLogin }) => {
         // Handle successful signup
         //DO SOMETHING
         setUser(result.data)
-        setShowSignup(false); // Close the signup form after success
+       
         setShowLogin(true)
       } else {
         // Handle errors (e.g., email already exists)
@@ -118,7 +118,7 @@ const SignupForm = ({ setShowSignup,setShowLogin }) => {
         />
 
         <FormControl fullWidth>
-          <InputLabel id="role-select-label" sx={{ color: "white" }}>
+          <InputLabel id="role-select-label" sx={{ color: "black" }}>
             Role
           </InputLabel>
           <Select
@@ -127,7 +127,8 @@ const SignupForm = ({ setShowSignup,setShowLogin }) => {
             value={role}
             onChange={(e) => setRole(e.target.value)}
             sx={{
-              color: "white",
+              backgroundColor:"white",
+              color: "black",
               ".MuiOutlinedInput-notchedOutline": {
                 borderColor: "transparent", // Remove default border
               },
@@ -141,7 +142,7 @@ const SignupForm = ({ setShowSignup,setShowLogin }) => {
               border: "2px dashed white", // Custom dashed border
 
               "& .MuiInputLabel-root": {
-                color: "white",
+                color: "black",
               },
             }}
             MenuProps={{
@@ -178,7 +179,7 @@ const SignupForm = ({ setShowSignup,setShowLogin }) => {
           {loading ? "Logging in..." : "Sign up"}{" "}
           <ArrowRightAltIcon className="arrow" />
         </FormButton>
-        <FormButton onClick={() => setShowSignup(false)}>
+        <FormButton onClick={() => setShowLogin(true)}>
           Back <ArrowRightAltIcon className="arrow" />
         </FormButton>
       </Box>

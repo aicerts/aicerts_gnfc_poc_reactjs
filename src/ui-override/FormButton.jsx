@@ -4,7 +4,7 @@ import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 const FormButton = styled(Button)(({ theme }) => ({
   padding: '15px 15px',
   color: 'white',
-  background: '#3f37c9',
+  background: '#140D49',
   borderRadius: 12,
   position: 'relative',
   display: 'inline-flex',
