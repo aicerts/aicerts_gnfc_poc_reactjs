@@ -292,7 +292,7 @@ const LeasersTable = () => {
                 </Table>
               </TableContainer>
               <Box py={3}>
-              <Button onClick={() => setSelectedRoyaltyPass(null)} variant="contained" color="primary" sx={{backgroundColor:"#140D49"}}>
+              <Button onClick={() => setSelectedRoyaltyPass(null)} variant="contained" color="primary" sx={{backgroundColor:"#140D49", color:"white"}}>
                 Back to Royalty Passes
               </Button>
               </Box>

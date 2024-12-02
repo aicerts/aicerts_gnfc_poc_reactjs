@@ -213,7 +213,7 @@ const DelivaryPassGenration = () => {
             gap={2}
           >
             <Typography variant="h6" fontWeight={"bold"}>
-              ISSUE DILRVARY PASS
+              ISSUE DELIVARY PASS
             </Typography>
             <Box display={"flex"} width={"50%"}>
               <TextField
@@ -326,7 +326,7 @@ const DelivaryPassGenration = () => {
               display: "flex",
               justifyContent: "flex-end",
               alignItems: "flex-end",
-              border:"none"
+              border:"none",
             }}
           >
             <Button

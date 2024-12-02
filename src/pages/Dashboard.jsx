@@ -12,18 +12,16 @@ import Grid from "@mui/material/Grid2";
 import StatsCard from "../components/StatsCard";
 import LeasersTable from "../components/LeasersTable";
 import { Typography } from "@mui/material";
-import HomeIcon from '@mui/icons-material/Home';
-import InsertChartIcon from '@mui/icons-material/InsertChart';
+import HomeIcon from "@mui/icons-material/Home";
+import InsertChartIcon from "@mui/icons-material/InsertChart";
 import MainDashboard from "../components/MainDashboard";
 import { useTheme } from "@emotion/react";
 
 const NAVIGATION = [
-
   {
     segment: "dashboard",
     title: "Dashboard",
-    icon: <HomeIcon sx={{ color: "#140D49 !important" }}
- />,
+    icon: <HomeIcon sx={{ color: "#140D49 !important" }} />,
   },
   {
     segment: "manage-leasers",
@@ -33,9 +31,6 @@ const NAVIGATION = [
   {
     kind: "divider",
   },
-
-
-
 ];
 
 const demoTheme = extendTheme({
@@ -54,34 +49,29 @@ const demoTheme = extendTheme({
         },
       },
     },
-    
   },
-  components:{
-    MuiIconButton:{
-      styleOverrides:{
-        root:{
-          backgroundColor:""
-        }
-      }
+  components: {
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "",
+        },
+      },
     },
-    MuiListItem:{
-      styleOverrides:{
-        root:{
-          color:"#140D49",
-          
-        }
-      }
-      
+    MuiListItem: {
+      styleOverrides: {
+        root: {
+          color: "#140D49",
+        },
+      },
     },
-    MuiLink:{
-      styleOverrides:{
-        root:{
-          backgroundColor:"red"
-        }
-      }
-    }
-
-    
+    MuiLink: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "red",
+        },
+      },
+    },
   },
   colorSchemeSelector: "class",
   breakpoints: {
@@ -95,7 +85,6 @@ const demoTheme = extendTheme({
   },
 });
 
-
 function useDemoRouter(initialPath) {
   const [pathname, setPathname] = React.useState(initialPath);
 
@@ -103,7 +92,7 @@ function useDemoRouter(initialPath) {
     return {
       pathname,
       searchParams: new URLSearchParams(),
-      navigate: (path) => setPathname(path),  // Update pathname on navigation
+      navigate: (path) => setPathname(path), // Update pathname on navigation
     };
   }, [pathname]);
 
@@ -125,9 +114,6 @@ export default function Dashboard(props) {
   const isDarkMode = theme?.palette?.mode === "dark"; // Use optional chaining to avoid undefined
   console.log("Is dark mode:", isDarkMode);
 
-
-  
-
   // Remove this const when copying and pasting into your project.
   const demoWindow = window ? window() : undefined;
 
@@ -136,7 +122,7 @@ export default function Dashboard(props) {
       case "/dashboard":
         return (
           <>
-        <MainDashboard/>
+            <MainDashboard />
           </>
         );
       case "/manage-leasers":
@@ -148,39 +134,34 @@ export default function Dashboard(props) {
 
   return (
     <ThemeProvider theme={demoTheme}>
-       <AppProvider
-    
-    navigation={NAVIGATION}
-    
-    
-    router={router}
-    theme={demoTheme}
-    window={demoWindow}
-    branding={{
-      logo: <img src="/icons/AG.png" alt="MUI logo" />,
-      title: (
-        <Typography
-          variant="h6"
-          sx={{
-            fontSize: "24px", // Adjust font size as needed
-            color: "#140D49", // Set the desired color (example: red)
-            fontWeight: 700, // Optional: adjust font weight
-          }}
-        >
-          ASSURANCE GATEWAY
-        </Typography>
-      ),
-      
-    }}
-  >
-    <DashboardLayout >
-      <PageContainer>
-        {renderContent()} {/* Dynamically render content based on pathname */}
-      </PageContainer>
-    </DashboardLayout>
-  </AppProvider>
-
+      <AppProvider
+        navigation={NAVIGATION}
+        router={router}
+        theme={demoTheme}
+        window={demoWindow}
+        branding={{
+          logo: <img src="/icons/AG.png" alt="MUI logo" />,
+          title: (
+            <Typography
+              variant="h6"
+              sx={{
+                fontSize: "24px", // Adjust font size as needed
+                color: "#140D49", // Set the desired color (example: red)
+                fontWeight: 700, // Optional: adjust font weight
+              }}
+            >
+              ASSURANCE GATEWAY
+            </Typography>
+          ),
+        }}
+      >
+        <DashboardLayout>
+          <PageContainer>
+            {renderContent()}{" "}
+            {/* Dynamically render content based on pathname */}
+          </PageContainer>
+        </DashboardLayout>
+      </AppProvider>
     </ThemeProvider>
-   
   );
 }
