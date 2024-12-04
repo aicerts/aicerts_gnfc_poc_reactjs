@@ -1,10 +1,11 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import SideBar from "./components/Sidebar";
-import MainDashboard from "./components/MainDashboard";
 import { Box } from "@mui/material";
 import Home from "./pages/Home";
 import { ThemeContextProvider } from "./components/ThemeContext";
 import PassGenration from "./pages/PassGenration";
+import Dashboard from "./pages/Dashboard";
+
 
 // A function to check if the user is authenticated
 const isAuthenticated = () => {
@@ -22,8 +23,8 @@ function App() {
               {/* Public Route */}
               <Route path="/" element={isAuthenticated() ? <Navigate to="/dashboard" /> : <Home />} />
               {/* Protected Routes */}
-              <Route path="/dashboard" element={isAuthenticated() ? <MainDashboard /> : <Navigate to="/" />} />
-              <Route path="/manage-leasers" element={isAuthenticated() ? <PassGenration /> : <Navigate to="/" />} />
+              <Route path="/dashboard" element={isAuthenticated() ? <Dashboard /> : <Navigate to="/" />} />
+              <Route path="/pass-details" element={isAuthenticated() ? <PassGenration /> : <Navigate to="/" />} />
             </Routes>
           </Box>
         </Box>

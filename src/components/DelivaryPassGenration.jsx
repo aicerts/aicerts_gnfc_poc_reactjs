@@ -99,7 +99,7 @@ const DelivaryPassGenration = () => {
 
   const issueRoyaltyPass = async () => {
     setLoading(true);
-    const email = localStorage.getItem("email")
+    const email = localStorage.getItem("email");
     const payload = {
       email: email, // Adjust this email dynamically if needed
       deliveryNo: data.deliveryNo,
@@ -165,8 +165,8 @@ const DelivaryPassGenration = () => {
           tinNo: "",
         });
       } else {
-        console.log("here")
-       
+        console.log("here");
+
         setAlert({
           open: true,
           message: response.data.message,
@@ -178,7 +178,9 @@ const DelivaryPassGenration = () => {
         // Handle specific 400 error response
         setAlert({
           open: true,
-          message: error.response.data.message || "Bad request. Please check the input data.",
+          message:
+            error.response.data.message ||
+            "Bad request. Please check the input data.",
           severity: "error",
         });
       } else {
@@ -207,13 +209,13 @@ const DelivaryPassGenration = () => {
             display="flex"
             justifyContent="space-between"
             mb={3}
-            bgcolor={mode === "dark" ? "#343434" : "#F1F4F9"} 
+            bgcolor={mode === "dark" ? "#343434" : "#F1F4F9"}
             p={2}
             flexDirection={"column"}
             gap={2}
           >
             <Typography variant="h6" fontWeight={"bold"}>
-              ISSUE DELIVARY PASS
+              DELIVARY PASS
             </Typography>
             <Box display={"flex"} width={"50%"}>
               <TextField
@@ -239,7 +241,15 @@ const DelivaryPassGenration = () => {
             </Box>
           </Box>
 
-          <Grid container spacing={0} sx={{border: mode === "dark" ? "1px solid #5a5a5a" :"1px solid #E5E5EF"  }}p={2}>
+          <Grid
+            container
+            spacing={0}
+            sx={{
+              border:
+                mode === "dark" ? "1px solid #5a5a5a" : "1px solid #E5E5EF",
+            }}
+            p={2}
+          >
             <StyledGridItem item xs={4}>
               <Subtitle variant="subtitle2">SSP Number:</Subtitle>
               <SubtitleValue>{data.SSPNumber || "-"}</SubtitleValue>
@@ -319,7 +329,7 @@ const DelivaryPassGenration = () => {
               </SubtitleValue>
             </StyledGridItem>
           </Grid>
-          <StyledGridItem
+          {/* <StyledGridItem
             item
             xs={4}
             sx={{
@@ -344,7 +354,7 @@ const DelivaryPassGenration = () => {
             >
               {loading ? "Loading..." : "Issue Delivery Pass"}
             </Button>
-          </StyledGridItem>
+          </StyledGridItem> */}
         </Paper>
       </Box>
       <Snackbar

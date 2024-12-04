@@ -160,7 +160,7 @@ const RoyaltyPassGenration = () => {
       <Paper variant="outlined" sx={{ p: 3, bgcolor: mode === "dark" ? "#343434" : "#f9f9f9" }}>
       <Box display="flex" justifyContent="space-between" mb={3} bgcolor={mode==="dark"?"#343434":"#F1F4F9"} p={2} flexDirection={"column"} gap={2}>
         <Typography variant='h6' fontWeight={"bold"}>
-          ISSUE ROYALTY PASS
+           ROYALTY PASS
 
         </Typography>
        <Box display={"flex"} width={"50%"}>
@@ -269,7 +269,7 @@ const RoyaltyPassGenration = () => {
 
 
 </Grid>
-<StyledGridItem item xs={4} sx={{
+{/* <StyledGridItem item xs={4} sx={{
     display:"flex",
     justifyContent:"flex-end",
     alignItems:"flex-end",
@@ -285,7 +285,7 @@ const RoyaltyPassGenration = () => {
          {loading ? 'Loading...' : 'Issue Royalty Pass'}
        </Button>
    
-  </StyledGridItem>
+  </StyledGridItem> */}
 
       </Paper>
     </Box>

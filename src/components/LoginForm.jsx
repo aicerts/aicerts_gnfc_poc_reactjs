@@ -15,7 +15,7 @@ const LoginForm = ({setShowLogin}) => {
   const [password, setPassword]=useState("")
   const [loading, setLoading] = useState(false); // To show loading during request
   const [role, setRole] = useState("") // State for selected role
-  const roles = ["Admin","Leaser", "Distributor", "Retailer", "Company"];
+  const roles = ["Admin","Leaser", "Stockist"];
   const [error, setError] = useState("");
   const setUser = userStore((state) => state.setUser); // Get the setUser function from the store
   const navigate = useNavigate(); // Use navigate to redirect to /dashboard
@@ -68,6 +68,8 @@ const LoginForm = ({setShowLogin}) => {
         localStorage.setItem("token", result?.data.JWTToken)
         localStorage.setItem("role", result?.data.role)
         localStorage.setItem("email", result?.data.email)
+        localStorage.setItem("roleId", result?.data.roleId)
+
 
         window.location.reload()
       } else {

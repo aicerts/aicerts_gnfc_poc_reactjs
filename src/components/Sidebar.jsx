@@ -142,7 +142,7 @@ React.useEffect(() => {
       color: mode === 'dark' ? '#fff' : '#000',          // Adjust text color
     },
   }} >
-     <Box display={"flex"} alignItems={"center"} py={2} gap={1}>
+     <Box display={"flex"} alignItems={"center"} py={2} gap={2}>
      <Box
       onClick={() => setOpen(!open)}
       onMouseEnter={() => setHovered(true)}
@@ -221,20 +221,20 @@ React.useEffect(() => {
             </Link>
         </List>
         <List >
-        <Link to="/manage-leasers" style={{ textDecoration: 'none', color: 'inherit' }}>
-        <ListItem key={"manage-leasers"} disablePadding sx={{ display: 'block', paddingX:"10px"  }}>
+        <Link to="/pass-details" style={{ textDecoration: 'none', color: 'inherit' }}>
+        <ListItem key={"pass-details"} disablePadding sx={{ display: 'block', paddingX:"10px"  }}>
        
               <ListItemButton
-                onClick={() => handleListItemClick('/manage-leaser')}
+                onClick={() => handleListItemClick('/pass-details')}
                 sx={{
-                  backgroundColor: selected === '/manage-leaser' 
+                  backgroundColor: selected === '/pass-details' 
                     ? theme.palette.mode === 'dark' 
                       ? '#444444' // Dark mode active panel color
                       : '#F5F5F5' // Light mode active panel color
                     : 'transparent',  
-                  color: selected === '/manage-leaser' ? '#140D49' : 'black',
+                  color: selected === '/pass-details' ? '#140D49' : 'black',
                   minHeight: 48,
-                  borderLeft: selected === '/manage-leaser' 
+                  borderLeft: selected === '/pass-details' 
                     ? `3px solid ${theme.palette.mode === 'dark' ? '#6c63ff' : '#140D49'}` 
                     : '',
                 }}
@@ -248,7 +248,7 @@ React.useEffect(() => {
                 </ListItemIcon>
               
                 <ListItemText
-                  primary={"Issuance"}
+                  primary={"Pass Details"}
                   style={{
                     color: theme.palette.mode === 'dark' ? 'white' : '#140D49', // Icon color based on theme
                   }}

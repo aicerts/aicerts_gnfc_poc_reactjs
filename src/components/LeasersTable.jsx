@@ -24,7 +24,7 @@ const LeasersTable = () => {
   const [loading, setLoading]=useState(false)
   const [error, setError]=useState("")
   const [popupOpen, setPopupOpen] = useState(false);
-  const [selectedRecordId, setSelectedRecordId] = useState(null)
+  const [selectedType, setSelectedType] = useState(null)
 
   
 
@@ -73,8 +73,10 @@ const LeasersTable = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [royltyPasses, setRoyltyPasses]=useState([])
   const [deliveryChallans, setDelivaryChallans]= useState([])
+  const [selectedPass, setSelectedPass] = useState(null); // State for selected pass
   const fetchRoyltyPasses = async(leasersId)=>{
     const token = localStorage.getItem("token"); // Get the token from localStorage
+    const roleId = localStorage.getItem("roleId")
 
     if (!token) {
       setError("No token found in localStorage");
@@ -104,8 +106,9 @@ const LeasersTable = () => {
     }
   }
  
-  const fetchDelivaryChallanList = async(royaltyId)=>{
+  const fetchDelivaryChallanList = async(leaserId)=>{
     const token = localStorage.getItem("token"); // Get the token from localStorage
+    const roleId = localStorage.getItem("roleId")
 
     if (!token) {
       setError("No token found in localStorage");
@@ -114,7 +117,7 @@ const LeasersTable = () => {
     }
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_DELIVERY_CHALLAN}/${royaltyId}`, {
+      const response = await fetch(`${import.meta.env.VITE_DELIVERY_CHALLAN}/${leaserId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -156,8 +159,23 @@ const LeasersTable = () => {
     setSelectedRoyaltyPass(null);
   };
 
-  const viewDelivaryDetail = (recordId) => {
-    setSelectedRecordId(recordId);
+  const viewDelivaryDetail = (recordId,type) => {
+    let pass
+
+    if(type === "royalty"){
+      
+      pass = royltyPasses.find((p) => p.royaltyPassNo === recordId); // Filter pass
+      setSelectedPass(pass)
+      setSelectedType(type);
+
+
+    }else{
+      pass = deliveryChallans.find((p) => p.deliveryNo === recordId); // Filter pass
+      setSelectedPass(pass)
+      setSelectedType(type);
+
+    }
+    
     setPopupOpen(true);
   };
 
@@ -206,10 +224,10 @@ const LeasersTable = () => {
       </TableContainer>
 
       {/* Drawer for Royalty Passes and Delivery Passes */}
-      <Drawer anchor="right" open={isDrawerOpen} onClose={handleCloseDrawer} >
-        <div style={{ width: "640px", padding: "20px 20px" }}>
+      <Drawer anchor="right" open={isDrawerOpen} onClose={handleCloseDrawer}  >
+        <div style={{ width: "640px", padding: "20px 10px", height:"100%", backgroundColor:mode === "dark"? "#1e1e1e" : "#E5E5EF", display:"flex", flexDirection:"column", gap:"10px" }}>
           {selectedLeaser && !selectedRoyaltyPass && (
-            <>
+            <Box height={"50%"} bgcolor={mode === "dark"? "#343434": "white"} p={2} borderRadius={2}>
               <Typography variant="h6">Royalty Passes for {selectedLeaser}</Typography>
               <TableContainer>
                 <Table>
@@ -238,7 +256,7 @@ const LeasersTable = () => {
                             borderRadius: "10px",
                             padding: "4px", // Optional for further adjustment
                           }}
-                            onClick={() => handleRoyaltyPassViewClick(pass.royaltyPassNo)}
+                            onClick={() => viewDelivaryDetail(pass.royaltyPassNo, "royalty")}
               
                           >
                             <RemoveRedEyeIcon sx={{ color: mode==="dark"?"white": "#140D49", }}/>
@@ -249,12 +267,12 @@ const LeasersTable = () => {
                   </TableBody>
                 </Table>
               </TableContainer>
-            </>
+            </Box>
           )}
-          {selectedRoyaltyPass && (
-            <>
+         
+         <Box height={"50%"} bgcolor={mode === "dark"? "#343434": "white"} p={2} borderRadius={2}>
               <Typography variant="h6">
-                Delivery Passes for {selectedRoyaltyPass}
+                Delivery Passes for {selectedLeaser}
               </Typography>
               <TableContainer>
                 <Table>
@@ -280,7 +298,7 @@ const LeasersTable = () => {
                             borderRadius: "10px",
                             padding: "4px", // Optional for further adjustment
                           }}
-                            onClick={() => viewDelivaryDetail(delivery.deliveryNo)}
+                            onClick={() => viewDelivaryDetail(delivery.deliveryNo, "delivery")}
               
                           >
                             <RemoveRedEyeIcon sx={{ color: mode==="dark"?"white": "#140D49", }}  />
@@ -291,13 +309,9 @@ const LeasersTable = () => {
                   </TableBody>
                 </Table>
               </TableContainer>
-              <Box py={3}>
-              <Button onClick={() => setSelectedRoyaltyPass(null)} variant="contained" color="primary" sx={{backgroundColor:"#140D49", color:"white"}}>
-                Back to Royalty Passes
-              </Button>
-              </Box>
-            </>
-          )}
+             
+            </Box>
+        
         </div>
       </Drawer>
 
@@ -305,7 +319,8 @@ const LeasersTable = () => {
        <DetailPopup
         open={popupOpen}
         onClose={() => setPopupOpen(false)}
-        recordId={selectedRecordId}
+        type={selectedType}
+        data={selectedPass} // Pass selected data
       />
     </div>
   );

@@ -1,13 +1,28 @@
-import { Box, Grid, Typography } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import StatsCard from './StatsCard';
-import LeasersTable from './LeasersTable';
-import { useTheme } from '@emotion/react';
-import { useThemeContext } from './ThemeContext';
+import {
+  Box,
+  Grid,
+  IconButton,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
+import React, { useEffect, useState } from "react";
+import StatsCard from "./StatsCard";
+import LeasersTable from "./LeasersTable";
+import { useTheme } from "@emotion/react";
+import { useThemeContext } from "./ThemeContext";
 
-const MainDashboard = () => {
+import DeliveryPasstable from "./tables/DeliveryPasstable";
+import RoyaltyPassTable from "./tables/RoyaltyPassTable";
+
+const LeaserDashboard = () => {
   const theme = useTheme();
   const { toggleTheme, mode } = useThemeContext();
+
   const [statsData, setStatsData] = useState({
     annualRoyalty: 0,
     dailyChallan: 0,
@@ -53,20 +68,23 @@ const MainDashboard = () => {
 
   return (
     <Box
-    display="flex"
-    width="100%"
-    height={"100%"}
-    bgcolor={mode === "dark" ? "#1e1e1e" : "#E5E5EF"}
-    pl={5}
+      display="flex"
+      width="100%"
+      height={"100%"}
+      bgcolor={mode === "dark" ? "#1e1e1e" : "#E5E5EF"}
+      pl={5}
+    
     >
-      <Grid spacing={1}
+      <Grid
+        spacing={1}
         
         flexDirection="column"
         gap={3}
         pl={5}
         pt={3}
       
-        overflow={"scroll"}>
+        overflow={"scroll"}
+      >
         <Grid size={12} width="97%"  height={"35%"}>
           <Grid
             container
@@ -78,7 +96,7 @@ const MainDashboard = () => {
             justifyContent="center"
             gap={1}
           >
-              <StatsCard
+            <StatsCard
               title="Daily Royalty Count"
               value={statsData.dailyRoyalty}
               growthText="Today's Report"
@@ -145,20 +163,29 @@ const MainDashboard = () => {
           flexDirection="column"
           gap={2}
           width={"97%"}
+          height={"45%"}
+          mb={3}
+    
         >
-          <Typography
-            variant="title"
-            color={mode === "dark" ? "white" : "#030229"}
-            fontWeight={700}
-            fontSize="20px"
-          >
-            Leasers Detail
-          </Typography>
-          <LeasersTable />
+            <RoyaltyPassTable/>
+        </Grid>
+
+        <Grid
+          bgcolor={mode === "dark" ? "#343434" : "white"}
+          p={2}
+          borderRadius={2}
+          size={12}
+          display="flex"
+          flexDirection="column"
+          gap={2}
+          width={"97%"}
+    
+        >
+          <DeliveryPasstable />
         </Grid>
       </Grid>
     </Box>
   );
 };
 
-export default MainDashboard;
+export default LeaserDashboard;

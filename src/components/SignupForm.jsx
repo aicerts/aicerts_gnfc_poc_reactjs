@@ -17,6 +17,7 @@ import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import { useNavigate } from "react-router-dom";
 import userStore from "../store/userStore"
 import BlurMenuItem from "../ui-override/BlurMenuItem"
+import { generateRoleId } from "../utils/gentateRoleId";
 
 const SignupForm = ({ setShowSignup,setShowLogin }) => {
   const [name, setName] = useState("");
@@ -24,7 +25,7 @@ const SignupForm = ({ setShowSignup,setShowLogin }) => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false); // To show loading during request
   const [role, setRole] = useState(""); // State for selected role
-  const roles = ["Admin","Leaser", "Distributor", "Retailer", "Company"];
+  const roles = ["Admin","Leaser", "Stockist"];
   const [error, setError] = useState("");
   const setUser = userStore((state) => state.setUser); // Get the setUser function from the store
   const navigate = useNavigate(); // Use navigate to redirect to /dashboard
@@ -48,12 +49,17 @@ const SignupForm = ({ setShowSignup,setShowLogin }) => {
       return;
     }
 
+    const roleId = generateRoleId(role);
+    console.log("role id is ", roleId)
+
     // Prepare the payload for the API
     const payload = {
       name: name, // Replace with dynamic name if needed
       email: email,
       role: role,
+      roleId:roleId,
       password: password,
+
     };
 
     setLoading(true); // Set loading to true when API request starts
