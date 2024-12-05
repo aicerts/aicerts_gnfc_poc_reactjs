@@ -49,37 +49,8 @@ const closedMixin = (theme) => ({
   },
 });
 
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'flex-end',
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-}));
 
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(['width', 'margin'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  variants: [
-    {
-      props: ({ open }) => open,
-      style: {
-        marginLeft: drawerWidth,
-        width: `calc(100% - ${drawerWidth}px)`,
-        transition: theme.transitions.create(['width', 'margin'], {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.enteringScreen,
-        }),
-      },
-    },
-  ],
-}));
+
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme }) => ({
@@ -133,53 +104,23 @@ React.useEffect(() => {
     }
 
   return (
-    <Box >
+    <>
+    <Box  >
       <CssBaseline />
-     
+      
       <Drawer variant="permanent" open={open} sx={{
+       
     '& .MuiDrawer-paper': {
       backgroundColor: mode === 'dark' ? '#343434' : '#fff', // Change the colors as per your design
-      color: mode === 'dark' ? '#fff' : '#000',          // Adjust text color
+      color: mode === 'dark' ? '#fff' : '#000',  
+           // Adjust text color
     },
   }} >
-     <Box display={"flex"} alignItems={"center"} py={2} gap={2}>
-     <Box
-      onClick={() => setOpen(!open)}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      bgcolor={"#140D49"}
-      px={1}
-      borderRadius={3}
-     
-      mx={1}
-      sx={{ cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", width:"50px", height:"50px", }}
-    >
-      {hovered ? (
-        open ? (
-          <KeyboardDoubleArrowLeftIcon  style={{ color: "white", fontSize:"35px" }} />
-        ) : (
-          <KeyboardDoubleArrowRightIcon style={{ color: "white" ,fontSize:"35px" }} />
-        )
-      ) : (
-        <Typography variant="h5" color="white" fontWeight={700}>
-          GC
-        </Typography>
-      )}
-    </Box>
+
+     <Box display={"flex"} alignItems={"center"} p={2}  >
+      <img src= {mode === "dark" ? "public/logos/Certs365+GNFC Logo_with Dark BG_01.png": "public/logos/Certs365+GNFC Logo_01.png"} alt="" height={60} width={"280px"} />
    
-    <Typography
-  variant="h6"
-  sx={{
-    fontSize: "25px", // Adjust font size as needed
-    fontFamily: "'Poppins', sans-serif",
-    color: mode === "dark" ? "white" : "#140D49", // Set the desired color
-    fontWeight: 700, // Optional: adjust font weight
-    whiteSpace: "nowrap", // Prevents line breaks
-    
-  }}
->
-  GNFC/CERTs365
-</Typography>
+   
      </Box>
   
         <Divider /> 
@@ -334,15 +275,31 @@ React.useEffect(() => {
       </Box>
      
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <DrawerHeader />
-        <Typography sx={{ marginBottom: 2 }}>
-         
-        </Typography>
-        <Typography sx={{ marginBottom: 2 }}>
-          
-        </Typography>
-      </Box>
+      
     </Box>
+    <IconButton
+  onClick={() => setOpen(!open)}
+  sx={{
+    position: "absolute",
+    top: "50%",
+    left: open ? `${drawerWidth - 20}px` : "60px",
+    transform: "translateY(-50%)",
+    backgroundColor: mode === "dark" ? "#444444" : "white",
+    color: mode === "dark" ? "#fff" : "#000",
+    zIndex: theme.zIndex.drawer + 1,
+    transition: "left 0.3s ease-in-out", // Add transition to 'left' property
+    '&:hover': {
+      backgroundColor: mode === "dark" ? "#555555" : "#e0e0e0",
+      
+    },
+    border:"none",
+      outline:"none",
+  }}
+>
+  {open ? <KeyboardDoubleArrowLeftIcon /> : <KeyboardDoubleArrowRightIcon />}
+</IconButton>
+
+     
+    </>
   );
 }

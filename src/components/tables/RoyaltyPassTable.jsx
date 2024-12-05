@@ -71,42 +71,46 @@ const RoyaltyPassTable = () => {
           <>
               
               <TableContainer>
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Royalty Pass ID</TableCell>
-                      <TableCell>Issue Date</TableCell>
+              <Table>
+  <TableHead>
+    <TableRow>
+      <TableCell>Royalty Pass ID</TableCell>
+      <TableCell>Issue Date</TableCell>
+      <TableCell>Valid Until</TableCell>
+      <TableCell>Actions</TableCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    {royltyPasses?.length > 0 ? (
+      royltyPasses.map((pass) => (
+        <TableRow key={pass.royaltyPassNo}>
+          <TableCell>{pass.royaltyPassNo}</TableCell>
+          <TableCell>{new Date(pass.issuedDate).toLocaleDateString()}</TableCell>
+          <TableCell>{new Date(pass.leaseValidUpto).toLocaleDateString()}</TableCell>
+          <TableCell>
+            <IconButton
+              sx={{
+                border: mode === "dark" ? "1px solid white" : "1px solid #140D49",
+                borderRadius: "10px",
+                padding: "4px", // Optional for further adjustment
+              }}
+              onClick={() => viewDetail(pass.royaltyPassNo)}
+            >
+              <RemoveRedEyeIcon sx={{ color: mode === "dark" ? "white" : "#140D49" }} />
+            </IconButton>
+          </TableCell>
+        </TableRow>
+      ))
+    ) : (
+      <TableRow>
+        <TableCell colSpan={4} align="center">
+          No data available
+        </TableCell>
+      </TableRow>
+    )}
+  </TableBody>
+</Table>
 
-                      <TableCell>Valid Until</TableCell>
-                      
-                      
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {royltyPasses?.map((pass) => (
-                      <TableRow key={pass.royaltyPassNo}>
-                        <TableCell>{pass.royaltyPassNo}</TableCell>
-                        <TableCell>{new Date(pass.issuedDate ).toLocaleDateString()}
-                        </TableCell>
-                        <TableCell>{new Date(pass.leaseValidUpto ).toLocaleDateString()}</TableCell>
-                        
-                        <TableCell>
-                          <IconButton
-                          sx={{
-                            border:mode==="dark"?"1px solid white": "1px solid #140D49",
-                            borderRadius: "10px",
-                            padding: "4px", // Optional for further adjustment
-                          }}
-                            onClick={() => viewDetail(pass.royaltyPassNo)}
-              
-                          >
-                            <RemoveRedEyeIcon sx={{ color: mode==="dark"?"white": "#140D49", }}/>
-                          </IconButton>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
               </TableContainer>
             </>
              {/* Existing table code */}

@@ -81,27 +81,37 @@ const DeliveryPasstable = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {deliveryChallans.map((delivery) => (
-                      <TableRow key={delivery.deliveryNo}>
-                        <TableCell>{delivery.deliveryNo}</TableCell>
-                        <TableCell>{delivery.SSPNumber}</TableCell>
-                        <TableCell>{delivery.buyerId}</TableCell>
-                        {/* <TableCell>{delivery.status}</TableCell> */}
-                        <TableCell>
-                          <IconButton
-                          sx={{
-                             border:mode==="dark"?"1px solid white": "1px solid #140D49",
-                            borderRadius: "10px",
-                            padding: "4px", // Optional for further adjustment
-                          }}
-                            onClick={() => viewDetail(delivery.deliveryNo)}
-              
-                          >
-                            <RemoveRedEyeIcon sx={{ color: mode==="dark"?"white": "#140D49", }}  />
-                          </IconButton>
-                        </TableCell>
-                      </TableRow>
-                    ))}
+                  {
+                    deliveryChallans.length >0 ?(
+                      deliveryChallans.map((delivery) => (
+                        <TableRow key={delivery.deliveryNo}>
+                          <TableCell>{delivery.deliveryNo}</TableCell>
+                          <TableCell>{delivery.SSPNumber}</TableCell>
+                          <TableCell>{delivery.buyerId}</TableCell>
+                          {/* <TableCell>{delivery.status}</TableCell> */}
+                          <TableCell>
+                            <IconButton
+                            sx={{
+                               border:mode==="dark"?"1px solid white": "1px solid #140D49",
+                              borderRadius: "10px",
+                              padding: "4px", // Optional for further adjustment
+                            }}
+                              onClick={() => viewDetail(delivery.deliveryNo)}
+                
+                            >
+                              <RemoveRedEyeIcon sx={{ color: mode==="dark"?"white": "#140D49", }}  />
+                            </IconButton>
+                          </TableCell>
+                        </TableRow>
+                      ))
+                    ):(
+                      <TableRow>
+                      <TableCell colSpan={4} align="center">
+                        No data available
+                      </TableCell>
+                    </TableRow>
+                    )
+                  }
                   </TableBody>
                 </Table>
               </TableContainer>

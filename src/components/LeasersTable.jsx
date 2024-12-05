@@ -140,8 +140,10 @@ const LeasersTable = () => {
 
   const handleLeaserViewClick = async(leaserId) => {
   const royltyPasses = await fetchRoyltyPasses(leaserId)
+  const deliveryPasse = await fetchDelivaryChallanList(leaserId)
   console.log(royltyPasses)
   setRoyltyPasses(royltyPasses)
+  setDelivaryChallans(deliveryPasse)
     setSelectedLeaser(leaserId);
     setSelectedRoyaltyPass(null); // Reset any previously selected royalty pass
     setIsDrawerOpen(true);
@@ -225,7 +227,7 @@ const LeasersTable = () => {
 
       {/* Drawer for Royalty Passes and Delivery Passes */}
       <Drawer anchor="right" open={isDrawerOpen} onClose={handleCloseDrawer}  >
-        <div style={{ width: "640px", padding: "20px 10px", height:"100%", backgroundColor:mode === "dark"? "#1e1e1e" : "#E5E5EF", display:"flex", flexDirection:"column", gap:"10px" }}>
+        <div style={{ width: "740px", padding: "20px 10px", height:"100%", backgroundColor:mode === "dark"? "#1e1e1e" : "#E5E5EF", display:"flex", flexDirection:"column", gap:"10px" }}>
           {selectedLeaser && !selectedRoyaltyPass && (
             <Box height={"50%"} bgcolor={mode === "dark"? "#343434": "white"} p={2} borderRadius={2}>
               <Typography variant="h6">Royalty Passes for {selectedLeaser}</Typography>
@@ -242,7 +244,9 @@ const LeasersTable = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {royltyPasses?.map((pass) => (
+                 {
+                  royltyPasses.length >0?(
+                    royltyPasses?.map((pass) => (
                       <TableRow key={pass.royaltyPassNo}>
                         <TableCell>{pass.royaltyPassNo}</TableCell>
                         <TableCell>{new Date(pass.issuedDate ).toLocaleDateString()}
@@ -263,7 +267,15 @@ const LeasersTable = () => {
                           </IconButton>
                         </TableCell>
                       </TableRow>
-                    ))}
+                    ))
+                  ):(
+                    <TableRow>
+                    <TableCell colSpan={4} align="center">
+                      No data available
+                    </TableCell>
+                  </TableRow>
+                  )
+                 }
                   </TableBody>
                 </Table>
               </TableContainer>
@@ -285,27 +297,37 @@ const LeasersTable = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {deliveryChallans.map((delivery) => (
-                      <TableRow key={delivery.deliveryNo}>
-                        <TableCell>{delivery.deliveryNo}</TableCell>
-                        <TableCell>{delivery.SSPNumber}</TableCell>
-                        <TableCell>{delivery.buyerId}</TableCell>
-                        {/* <TableCell>{delivery.status}</TableCell> */}
-                        <TableCell>
-                          <IconButton
-                          sx={{
-                             border:mode==="dark"?"1px solid white": "1px solid #140D49",
-                            borderRadius: "10px",
-                            padding: "4px", // Optional for further adjustment
-                          }}
-                            onClick={() => viewDelivaryDetail(delivery.deliveryNo, "delivery")}
-              
-                          >
-                            <RemoveRedEyeIcon sx={{ color: mode==="dark"?"white": "#140D49", }}  />
-                          </IconButton>
+                    {
+                      deliveryChallans.length>0?(
+                        deliveryChallans.map((delivery) => (
+                          <TableRow key={delivery.deliveryNo}>
+                            <TableCell>{delivery.deliveryNo}</TableCell>
+                            <TableCell>{delivery.SSPNumber}</TableCell>
+                            <TableCell>{delivery.buyerId}</TableCell>
+                            {/* <TableCell>{delivery.status}</TableCell> */}
+                            <TableCell>
+                              <IconButton
+                              sx={{
+                                 border:mode==="dark"?"1px solid white": "1px solid #140D49",
+                                borderRadius: "10px",
+                                padding: "4px", // Optional for further adjustment
+                              }}
+                                onClick={() => viewDelivaryDetail(delivery.deliveryNo, "delivery")}
+                  
+                              >
+                                <RemoveRedEyeIcon sx={{ color: mode==="dark"?"white": "#140D49", }}  />
+                              </IconButton>
+                            </TableCell>
+                          </TableRow>
+                        ))
+                      ):(
+                        <TableRow>
+                        <TableCell colSpan={4} align="center">
+                          No data available
                         </TableCell>
                       </TableRow>
-                    ))}
+                      )
+                    }
                   </TableBody>
                 </Table>
               </TableContainer>

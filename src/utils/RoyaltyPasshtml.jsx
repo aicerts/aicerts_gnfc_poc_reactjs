@@ -3,11 +3,12 @@ import { formatDate } from "./formateDate";
 
 const RoyaltyPassHtml = ({ royaltyPass,barcodeSrc }) => {
   return (
-    <div id="royalty-pass-print" style={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center" }}>
-      <table style={{ fontFamily: "Arial", fontSize: "16px" }}>
-      <div style={{  width:"100%"}} >
+    <div id="royalty-pass-print" style={{display:"flex", flexDirection:"column" }}>
+      <div style={{ display:"flex" , justifyContent:"center"}}>
+      <table style={{ fontFamily: "Arial", fontSize: "16px"}}>
+      <div style={{  width:"100%"  }} >
       <tbody   >
-          <tr >
+          <tr  >
             <td>
               <img
                 src={royaltyPass.qrData}
@@ -90,13 +91,14 @@ const RoyaltyPassHtml = ({ royaltyPass,barcodeSrc }) => {
         </tbody>
       </div>
       </table>
-      <div>
+      </div>
+      <div style={{display:"flex" , justifyContent:"center"}}>
         <table
           style={{
             fontFamily: "Arial",
             fontSize: "16px",
             border: "1px solid #000",
-            width: "880px",
+            width: "900px",
             borderCollapse: "collapse",
             margin: "auto",
           }}

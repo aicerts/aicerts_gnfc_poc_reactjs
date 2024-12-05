@@ -101,6 +101,10 @@ const PassGenration = () => {
         <Box
           sx={{
             width: "100%",
+            height:"100%",
+            display:"flex",
+            justifyContent:"center",
+            alignItems:"center",
             backgroundColor: mode === "dark" ? "#1c1c1c" : "#E5E5EF",
           }}
         >

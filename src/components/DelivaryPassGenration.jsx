@@ -197,7 +197,7 @@ const DelivaryPassGenration = () => {
 
   return (
     <>
-      <Box width="100%" px={3}>
+      <Box width="96%" px={3}>
         {/* Input Section */}
 
         {/* Details Section */}
