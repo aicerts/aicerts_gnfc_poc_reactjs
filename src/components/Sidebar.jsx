@@ -45,7 +45,7 @@ const closedMixin = (theme) => ({
   overflowX: 'hidden',
   width: `calc(${theme.spacing(7)} + 1px)`,
   [theme.breakpoints.up('sm')]: {
-    width: `calc(${theme.spacing(9.5)} + 1px)`,
+    width: `calc(${theme.spacing(10.5)} + 1px)`,
   },
 });
 
@@ -117,8 +117,8 @@ React.useEffect(() => {
     },
   }} >
 
-     <Box display={"flex"} alignItems={"center"} p={2}  >
-      <img src= {mode === "dark" ? "logos/Certs365+GNFC Logo_with Dark BG_01.png": "logos/Certs365+GNFC Logo_01.png"} alt="" height={60} width={"280px"} />
+     <Box display={"flex"} alignItems={"center"} p={1}  >
+      <img src= {"/GNFC-logo.png"} alt="" height={80} width={80} />
    
    
      </Box>
