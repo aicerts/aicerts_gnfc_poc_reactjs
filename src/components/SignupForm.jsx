@@ -17,6 +17,7 @@ import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import { useNavigate } from "react-router-dom";
 import userStore from "../store/userStore"
 import BlurMenuItem from "../ui-override/BlurMenuItem"
+import { generateRoleId } from "../utils/gentateRoleId";
 
 const SignupForm = ({ setShowSignup,setShowLogin }) => {
   const [name, setName] = useState("");
@@ -24,7 +25,7 @@ const SignupForm = ({ setShowSignup,setShowLogin }) => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false); // To show loading during request
   const [role, setRole] = useState(""); // State for selected role
-  const roles = ["Leaser", "Government", "Distributor", "Retailer", "Company"];
+  const roles = ["Admin","Leaser", "Stockist"];
   const [error, setError] = useState("");
   const setUser = userStore((state) => state.setUser); // Get the setUser function from the store
   const navigate = useNavigate(); // Use navigate to redirect to /dashboard
@@ -48,19 +49,24 @@ const SignupForm = ({ setShowSignup,setShowLogin }) => {
       return;
     }
 
+    const roleId = generateRoleId(role);
+    console.log("role id is ", roleId)
+
     // Prepare the payload for the API
     const payload = {
       name: name, // Replace with dynamic name if needed
       email: email,
       role: role,
+      roleId:roleId,
       password: password,
+
     };
 
     setLoading(true); // Set loading to true when API request starts
 
     try {
       // Make the API request
-      const response = await fetch("http://localhost:8000/api/user-signup", {
+      const response = await fetch(import.meta.env.VITE_USER_SIGNUP, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -74,7 +80,7 @@ const SignupForm = ({ setShowSignup,setShowLogin }) => {
         // Handle successful signup
         //DO SOMETHING
         setUser(result.data)
-        setShowSignup(false); // Close the signup form after success
+       
         setShowLogin(true)
       } else {
         // Handle errors (e.g., email already exists)
@@ -118,7 +124,7 @@ const SignupForm = ({ setShowSignup,setShowLogin }) => {
         />
 
         <FormControl fullWidth>
-          <InputLabel id="role-select-label" sx={{ color: "white" }}>
+          <InputLabel id="role-select-label" sx={{ color: "black" }}>
             Role
           </InputLabel>
           <Select
@@ -127,7 +133,8 @@ const SignupForm = ({ setShowSignup,setShowLogin }) => {
             value={role}
             onChange={(e) => setRole(e.target.value)}
             sx={{
-              color: "white",
+              backgroundColor:"white",
+              color: "black",
               ".MuiOutlinedInput-notchedOutline": {
                 borderColor: "transparent", // Remove default border
               },
@@ -141,7 +148,7 @@ const SignupForm = ({ setShowSignup,setShowLogin }) => {
               border: "2px dashed white", // Custom dashed border
 
               "& .MuiInputLabel-root": {
-                color: "white",
+                color: "black",
               },
             }}
             MenuProps={{
@@ -158,7 +165,7 @@ const SignupForm = ({ setShowSignup,setShowLogin }) => {
           >
             {roles.map((roleOption) => (
               <BlurMenuItem key={roleOption} value={roleOption}>
-              {roleOption}
+              {roleOption.toUpperCase()}
             </BlurMenuItem>
             ))}
           </Select>
@@ -178,7 +185,7 @@ const SignupForm = ({ setShowSignup,setShowLogin }) => {
           {loading ? "Logging in..." : "Sign up"}{" "}
           <ArrowRightAltIcon className="arrow" />
         </FormButton>
-        <FormButton onClick={() => setShowSignup(false)}>
+        <FormButton onClick={() => setShowLogin(true)}>
           Back <ArrowRightAltIcon className="arrow" />
         </FormButton>
       </Box>

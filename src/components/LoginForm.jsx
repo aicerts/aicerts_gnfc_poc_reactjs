@@ -15,7 +15,7 @@ const LoginForm = ({setShowLogin}) => {
   const [password, setPassword]=useState("")
   const [loading, setLoading] = useState(false); // To show loading during request
   const [role, setRole] = useState("") // State for selected role
-  const roles = ["Leaser", "Government", "Distributor", "Retailer", "Company"];
+  const roles = ["Admin","Leaser", "Stockist"];
   const [error, setError] = useState("");
   const setUser = userStore((state) => state.setUser); // Get the setUser function from the store
   const navigate = useNavigate(); // Use navigate to redirect to /dashboard
@@ -50,7 +50,7 @@ const LoginForm = ({setShowLogin}) => {
 
     try {
       // Make the API request
-      const response = await fetch("http://localhost:8000/api/user-login", {
+      const response = await fetch(import.meta.env.VITE_USER_LOGIN, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -59,12 +59,19 @@ const LoginForm = ({setShowLogin}) => {
       });
 
       const result = await response.json();
+      console.log(result)
 
       if (result.status === "SUCCESS") {
         // Handle successful signup
         //DO SOMETHING
-        setUser(result.data)
-        setShowLogin(false); // Close the signup form after success
+        // setUser(result.data)
+        localStorage.setItem("token", result?.data.JWTToken)
+        localStorage.setItem("role", result?.data.role)
+        localStorage.setItem("email", result?.data.email)
+        localStorage.setItem("roleId", result?.data.roleId)
+
+
+        window.location.reload()
       } else {
         // Handle errors (e.g., email already exists)
         setError(`Error: ${result.message || "Something went wrong"}`);
@@ -85,12 +92,12 @@ const LoginForm = ({setShowLogin}) => {
 
   return (
     <BlurBox sx={{width:"30%"}}>
-     <Typography variant="h5" color="white" fontWeight={"bold"}>
-            Login
+     <Box display={"flex"} flexDirection={"column"} justifyContent={"center"} alignItems={"center"}>
+     <Typography variant="h5" color="white" fontWeight={"bold"} textTransform={"uppercase"}>
+     GNFC / CERTs365
           </Typography>
-          <Typography variant="subtitle" color="white">
-            Login with your email
-          </Typography>
+      
+     </Box>
           <Box display={"flex"} flexDirection={"column"} width={"100%"} gap={2}>
         <FormInput
         id="email"
@@ -102,7 +109,7 @@ const LoginForm = ({setShowLogin}) => {
       />
      
      <FormControl fullWidth>
-          <InputLabel id="role-select-label" sx={{ color: "white" }}>
+          <InputLabel id="role-select-label" sx={{ color: "black" }}>
             Role
           </InputLabel>
           <Select
@@ -111,7 +118,8 @@ const LoginForm = ({setShowLogin}) => {
             value={role}
             onChange={(e) => setRole(e.target.value)}
             sx={{
-              color: "white",
+              backgroundColor:"white",
+              color: "black",
               ".MuiOutlinedInput-notchedOutline": {
                 borderColor: "transparent", // Remove default border
               },
@@ -122,7 +130,7 @@ const LoginForm = ({setShowLogin}) => {
                 borderColor: "transparent", // Remove border when focused
               },
               ".MuiSvgIcon-root": { color: "white" },
-              border: "2px dashed white", // Custom dashed border
+             
 
               "& .MuiInputLabel-root": {
                 color: "white",
@@ -142,7 +150,7 @@ const LoginForm = ({setShowLogin}) => {
           >
             {roles.map((roleOption) => (
               <BlurMenuItem key={roleOption} value={roleOption}>
-              {roleOption}
+              {roleOption.toUpperCase()}
             </BlurMenuItem>
             ))}
           </Select>
@@ -162,9 +170,15 @@ const LoginForm = ({setShowLogin}) => {
         <FormButton  disabled={loading} onClick={handleLogin} >
           {loading ? 'Logging in...' : 'Log In'} <ArrowRightAltIcon className="arrow" />
         </FormButton>
-        <FormButton onClick={()=>setShowLogin(false)} >
+        {/* <FormButton onClick={()=>setShowLogin(false)} >
           Back <ArrowRightAltIcon className="arrow" />
-        </FormButton>
+        </FormButton> */}
+       <Box onClick={()=>setShowLogin(false)} display={"flex"} justifyContent={"center"} >
+       <Typography  variant='subtitle' color='white' sx={{cursor:"pointer"}}>
+        Don’t have an account? Create an account
+        </Typography>
+       </Box>
+
         </Box>
 
         {error && (
