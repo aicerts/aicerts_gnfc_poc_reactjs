@@ -93,9 +93,7 @@ const LoginForm = ({setShowLogin}) => {
   return (
     <BlurBox sx={{width:"30%"}}>
      <Box display={"flex"} flexDirection={"column"} justifyContent={"center"} alignItems={"center"}>
-     <Typography variant="h5" color="white" fontWeight={"bold"} textTransform={"uppercase"}>
-     GNFC / CERTs365
-          </Typography>
+     <img src= {"logos/Certs365+GNFC Logo_with Dark BG_01.png"} alt="" height={60} width={"280px"} />
       
      </Box>
           <Box display={"flex"} flexDirection={"column"} width={"100%"} gap={2}>
