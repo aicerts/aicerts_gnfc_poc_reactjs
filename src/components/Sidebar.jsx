@@ -118,7 +118,7 @@ React.useEffect(() => {
   }} >
 
      <Box display={"flex"} alignItems={"center"} p={2}  >
-      <img src= {mode === "dark" ? "public/logos/Certs365+GNFC Logo_with Dark BG_01.png": "public/logos/Certs365+GNFC Logo_01.png"} alt="" height={60} width={"280px"} />
+      <img src= {mode === "dark" ? "logos/Certs365+GNFC Logo_with Dark BG_01.png": "logos/Certs365+GNFC Logo_01.png"} alt="" height={60} width={"280px"} />
    
    
      </Box>
