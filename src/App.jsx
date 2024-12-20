@@ -1,36 +1,49 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import SideBar from "./components/Sidebar";
-import { Box } from "@mui/material";
-import Home from "./pages/Home";
-import { ThemeContextProvider } from "./components/ThemeContext";
-import PassGenration from "./pages/PassGenration";
-import Dashboard from "./pages/Dashboard";
-
-
-// A function to check if the user is authenticated
-const isAuthenticated = () => {
-  return localStorage.getItem("token") !== null;
-};
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import UploadDetails from './pages/UploadDetails'
+import { BrowserRouter as Router ,Routes, Route} from 'react-router-dom'
+import VerifyDetails from './pages/VerifyDetails'
+import { Box, Stack, Typography } from '@mui/material'
 
 function App() {
+
   return (
-    <ThemeContextProvider>
-      <BrowserRouter>
-        <Box display={"flex"} width={"100vw"} height={"100vh"} bgcolor={"#FAFAFB"}>
-          {isAuthenticated() && <SideBar />} {/* Sidebar remains persistent */}
-          <Box flexGrow={1}>
-            <Routes>
-              {/* Public Route */}
-              <Route path="/" element={isAuthenticated() ? <Navigate to="/dashboard" /> : <Home />} />
-              {/* Protected Routes */}
-              <Route path="/dashboard" element={isAuthenticated() ? <Dashboard /> : <Navigate to="/" />} />
-              <Route path="/pass-details" element={isAuthenticated() ? <PassGenration /> : <Navigate to="/" />} />
-            </Routes>
-          </Box>
+  
+     <Stack
+      width="100vw"
+      height="100vh"
+      bgcolor="#E5E5EF"
+      display="flex"
+     
+      alignItems="center"
+     
+      margin={0}
+      gap={2}
+
+    >
+      <Box  width={"100%"} height={"10%"} bgcolor={"white"}  display={"flex"
+      } alignItems={"center"} p={1}>
+       
+        <Box px={1}>
+        <img src="/gnfc_logo.png" width={"240px"} height={50} alt="" />
         </Box>
-      </BrowserRouter>
-    </ThemeContextProvider>
-  );
+    
+     
+
+      </Box>
+      <Router>
+      <Routes>
+        <Route path='/' element={<UploadDetails/>}/>
+        <Route path='/verify-details' element={<VerifyDetails/>}/>
+      </Routes>
+    </Router>
+
+    </Stack>
+    
+   
+ 
+  )
 }
 
-export default App;
+export default App
